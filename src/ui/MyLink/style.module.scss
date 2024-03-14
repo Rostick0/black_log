@@ -1,0 +1,25 @@
+.link {
+  color: var(--first-color);
+  display: inline-flex;
+  align-items: center;
+  column-gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.3s;
+
+  &__children {
+    flex-grow: 1;
+  }
+
+  &__arrow {
+    transition: 0.3s;
+  }
+
+  &:hover {
+    color: var(--second-color);
+
+    .link__arrow {
+      stroke: var(--second-color);
+    }
+  }
+}

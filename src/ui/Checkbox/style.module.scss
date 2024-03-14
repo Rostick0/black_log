@@ -1,0 +1,48 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+
+  &__input:checked + &__icon {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &.arrow {
+    .checkbox__icon {
+      border-radius: 4px;
+      
+      &::before {
+        background-color: transparent;
+        content: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.886719 2.8748L6.31157 7.68978L12.8867 0.647964' stroke='%23DD1405' stroke-linecap='round'/%3E%3C/svg%3E");
+      }
+    }
+  }
+
+  &__icon {
+    border: 1px solid var(--fifth-color);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+
+    &::before {
+      background-color: var(--first-color);
+      border-radius: 50%;
+      content: "";
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      opacity: 0;
+      width: 12px;
+      height: 12px;
+    }
+  }
+}

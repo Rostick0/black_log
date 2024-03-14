@@ -1,0 +1,35 @@
+.ul {
+  color: var(--fifth-color);
+
+  &.list-style-none {
+    li {
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+
+  li {
+    display: flex;
+
+    &::before {
+      background-color: var(--fifth-color);
+      border-radius: 50%;
+      display: inline-block;
+      content: "";
+      flex-shrink: 0;
+      margin: 0 8px;
+      transform: translateY(5px);
+      width: 4px;
+      height: 4px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    li {
+      &::before {
+        margin: 0 6px;
+      }
+    }
+  }
+}

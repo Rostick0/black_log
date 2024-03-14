@@ -1,0 +1,14 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  &__error {
+    color: var(--first-color);
+    font-size: 12px;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
