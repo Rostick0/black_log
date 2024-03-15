@@ -1,9 +1,12 @@
+import LayoutAuth from "../../layout/LayoutAuth";
 import styles from "./style.module.scss";
+import LoginForm from "../../components/Login";
 
 export default function Login() {
   return (
-    <ClientLayout>
-      <div className={styles.Login}></div>
-    </ClientLayout>
+    <LayoutAuth>
+      <LoginForm />
+      {/* <div className={styles.Login}></div> */}
+    </LayoutAuth>
   );
 }

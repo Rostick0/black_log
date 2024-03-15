@@ -2,10 +2,11 @@
 @import "./root";
 @import "./fonts";
 @import "./ui";
+@import "./components/";
 
 .wrapper {
-  background-color: var(--fourth-color);
-  color: var(--third-color);
+  background-color: var(--tenth-color);
+  color: var(--fourth-color);
   display: flex;
   flex-direction: column;
   font-family: "Gilroy", sans-serif;

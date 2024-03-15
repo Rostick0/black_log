@@ -1,17 +1,20 @@
 import styles from "./style.module.scss";
 import stylesInput from "../../ui/Input/style.module.scss";
 import Control from "../../ui/Control";
+import { useForm } from "react-hook-form";
 
 export default function InputForm({
   className,
   label,
   error,
-  register,
+  // register,
   name = "",
   rules = {},
   icon,
   ...other
 }) {
+  const { register } = useForm();
+
   return (
     <Control className={className} label={label} error={error}>
       <span className={styles.field}>

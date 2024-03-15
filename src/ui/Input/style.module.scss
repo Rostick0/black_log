@@ -1,23 +1,13 @@
 .input {
-  background-color: var(--fourth-color);
-  border: 1px solid var(--fifth-color);
+  border: 1px solid var(--sixth-color);
   border-radius: 40px;
-  color: var(--third-color);
+  color: var(--fourth-color);
   font-family: "Gilroy", sans-serif;
   font-size: 16px;
-  padding: 20px 40px;
+  padding: 12px 40px;
   width: 100%;
 
   &::placeholder {
-    color: var(--fifth-color);
-  }
-
-  @media (max-width: 920px) {
-    font-size: 14px;
-    padding: 16px 32px;
-  }
-
-  @media (max-width: 576px) {
-    padding: 12px 24px;
+    color: var(--seventh-color);
   }
 }

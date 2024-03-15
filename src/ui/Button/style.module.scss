@@ -1,12 +1,13 @@
 .btn {
-  background-color: var(--first-color);
-  color: #fafafa;
+  background-color: var(--third-color);
+  color: var(--tenth-color);
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 24px;
+  display: flex;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   transition: 0.3s;
-  padding: 16px 40px;
+  padding: 12px 40px;
 
   &:hover {
     background-color: var(--second-color);
@@ -14,27 +15,12 @@
 
   &.outlined {
     background-color: transparent;
-    color: var(--first-color);
-    border: 1px solid var(--first-color);
+    color: var(--third-color);
+    border: 1px solid var(--third-color);
 
     &:hover {
       color: var(--second-color);
       border-color: var(--second-color);
     }
-  }
-
-  &.black {
-    border: 1px solid var(--fourth-color);
-    background-color: var(--third-color);
-    color: var(--fourth-color);
-  }
-
-  @media (max-width: 920px) {
-    font-size: 14px;
-    padding: 14px 32px;
-  }
-
-  @media (max-width: 576px) {
-    padding: 12px 24px;
   }
 }

@@ -1,0 +1,18 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &-title {
+    font-size: 36px;
+    text-transform: uppercase;
+  }
+
+  &-btn {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 20px 0;
+    width: 100%;
+  }
+}

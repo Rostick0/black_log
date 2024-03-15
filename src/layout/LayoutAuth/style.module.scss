@@ -1,2 +1,24 @@
 .LayoutAuth {
+  display: flex;
+  min-height: 100vh;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 221px;
+    flex: 1 1 auto;
+    padding-top: 120px;
+    margin-left: auto;
+    margin-right: 128px;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  &__right {
+    background-image: url("../../../public/image/auth-background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-basis: 49.48vw;
+  }
 }
