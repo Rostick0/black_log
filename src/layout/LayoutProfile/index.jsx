@@ -1,8 +1,9 @@
 import styles from "./style.module.scss";
 import { ROUTE_NAMES } from "../../app/router";
 import Nav from "../../components/Nav";
+import ProfileSwitchPages from "../../components/ProfileSwitchPages";
 
-export default function LayoutDefault({ children }) {
+export default function LayoutProfile({ children }) {
   const routes = [
     {
       name: "Home",
@@ -23,11 +24,14 @@ export default function LayoutDefault({ children }) {
   ];
 
   return (
-    <div className={styles.LayoutDefault}>
+    <div className={styles.LayoutProfile}>
       <div className="container">
         <Nav routes={routes} />
+        <div className={styles.LayoutProfile__content}>
+          <ProfileSwitchPages />
+          <div className={styles.LayoutProfile__content_inner}>{children}</div>
+        </div>
       </div>
-      <div className={styles.LayoutDefault__content}>{children}</div>
     </div>
   );
 }

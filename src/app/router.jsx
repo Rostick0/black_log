@@ -8,13 +8,13 @@ const Register = lazy(() => import("../pages/Register"));
 const Market = lazy(() => import("../pages/Market"));
 const Requests = lazy(() => import("../pages/Requests"));
 
-const UserTickets = lazy(() => import("../pages/User/Tickets"));
-const UserProfileBalance = lazy(() => import("../pages/User/ProfileBalance"));
-const UserProfileBasket = lazy(() => import("../pages/User/ProfileBasket"));
-const UserProfileProducts = lazy(() => import("../pages/User/ProfileProducts"));
-const UserProfileSettings = lazy(() => import("../pages/User/ProfileSettings"));
-const UserProfileTransactions = lazy(() =>
-  import("../pages/User/ProfileTransactions")
+const ClientTickets = lazy(() => import("../pages/Client/Tickets"));
+const ClientProfileBalance = lazy(() => import("../pages/Client/ProfileBalance"));
+const ClientProfileBasket = lazy(() => import("../pages/Client/ProfileBasket"));
+const ClientProfileProducts = lazy(() => import("../pages/Client/ProfileProducts"));
+const ClientProfileSettings = lazy(() => import("../pages/Client/ProfileSettings"));
+const ClientProfileTransactions = lazy(() =>
+  import("../pages/Client/ProfileTransactions")
 );
 
 export const ROUTE_NAMES = {
@@ -22,14 +22,14 @@ export const ROUTE_NAMES = {
   login: "/login",
   market: "/market",
   register: "/register",
-  user: {
-    tickets: "/user/tickets",
+  client: {
+    tickets: "/client/tickets",
     profile: {
-      balance: "/user/profile/balance",
-      basket: "/user/profile/basket",
-      products: "/user/profile/products",
-      settings: "/user/profile/settings",
-      transactions: "/user/profile/transactions",
+      balance: "/client/profile/balance",
+      basket: "/client/profile/basket",
+      products: "/client/profile/products",
+      settings: "/client/profile/settings",
+      transactions: "/client/profile/transactions",
     },
   },
 };
@@ -45,28 +45,28 @@ const AppRouter = () => {
         <Route path={ROUTE_NAMES.requests} element={<Requests />}></Route>
 
         <Route
-          path={ROUTE_NAMES.user.tickets}
-          element={<UserTickets />}
+          path={ROUTE_NAMES.client.tickets}
+          element={<ClientTickets />}
         ></Route>
         <Route
-          path={ROUTE_NAMES.user.profile.balance}
-          element={<UserProfileBalance />}
+          path={ROUTE_NAMES.client.profile.balance}
+          element={<ClientProfileBalance />}
         ></Route>
         <Route
-          path={ROUTE_NAMES.user.profile.basket}
-          element={<UserProfileBasket />}
+          path={ROUTE_NAMES.client.profile.basket}
+          element={<ClientProfileBasket />}
         ></Route>
         <Route
-          path={ROUTE_NAMES.user.profile.products}
-          element={<UserProfileProducts />}
+          path={ROUTE_NAMES.client.profile.products}
+          element={<ClientProfileProducts />}
         ></Route>
         <Route
-          path={ROUTE_NAMES.user.profile.settings}
-          element={<UserProfileSettings />}
+          path={ROUTE_NAMES.client.profile.settings}
+          element={<ClientProfileSettings />}
         ></Route>
         <Route
-          path={ROUTE_NAMES.user.profile.transactions}
-          element={<UserProfileTransactions />}
+          path={ROUTE_NAMES.client.profile.transactions}
+          element={<ClientProfileTransactions />}
         ></Route>
       </Routes>
     </Suspense>

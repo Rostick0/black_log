@@ -1,0 +1,17 @@
+.ProfileSettings {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+
+    &__information {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 12px 20px;
+    }
+
+    &__save {
+        justify-content: center;
+        margin-top: 20px;
+        width: 100%;
+    }
+}

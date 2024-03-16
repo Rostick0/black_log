@@ -21,7 +21,7 @@ export default function InputForm({
           {...register(name, rules)}
           {...other}
         />
-        {icon}
+        {icon && <div className={styles.field__icon}>{icon}</div>}
       </span>
     </Control>
   );

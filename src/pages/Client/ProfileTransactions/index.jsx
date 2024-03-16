@@ -1,14 +1,14 @@
-import LayoutDefault from "../../../layout/LayoutDefault";
+import LayoutProfile from "../../../layout/LayoutProfile";
 import styles from "./style.module.scss";
 
 export default function ProfileTransactions() {
   return (
-    <LayoutDefault>
+    <LayoutProfile>
       <div className={styles.ProfileTransactions}>
         <div className="container">
           <div className={styles.ProfileTransactions__container}>ProfileTransactions</div>
         </div>
       </div>
-    </LayoutDefault>
+    </LayoutProfile>
   );
 }

@@ -1,14 +1,14 @@
-import LayoutDefault from "../../../layout/LayoutDefault";
+import LayoutProfile from "../../../layout/LayoutProfile";
 import styles from "./style.module.scss";
 
 export default function ProfileBasket() {
   return (
-    <LayoutDefault>
+    <LayoutProfile>
       <div className={styles.ProfileBasket}>
         <div className="container">
           <div className={styles.ProfileBasket__container}>ProfileBasket</div>
         </div>
       </div>
-    </LayoutDefault>
+    </LayoutProfile>
   );
 }
