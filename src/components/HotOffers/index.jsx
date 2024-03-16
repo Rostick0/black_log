@@ -3,7 +3,7 @@ import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function HotOffers() {
-  const data = Array.from(Array(16).keys()).map((item,) => ({
+  const data = Array.from(Array(16).keys()).map((item) => ({
     id: item,
     link: "wm.com",
     balance: "N/A",

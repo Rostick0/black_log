@@ -81,6 +81,14 @@ button.btn-circle {
   &-ui {
     color: var(--third-color);
   }
+
+  &-green {
+    color: #1CC700;
+  }
+
+  &-red {
+    color: var(--ninth-color);
+  }
 }
 
 .link {
