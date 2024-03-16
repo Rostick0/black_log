@@ -23,4 +23,12 @@
       border-color: var(--second-color);
     }
   }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.bright_blue {
+    background-color: var(--sixth-color);
+  }
 }

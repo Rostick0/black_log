@@ -7,14 +7,12 @@ export default function InputForm({
   className,
   label,
   error,
-  // register,
+  register,
   name = "",
   rules = {},
   icon,
   ...other
 }) {
-  const { register } = useForm();
-
   return (
     <Control className={className} label={label} error={error}>
       <span className={styles.field}>

@@ -40,7 +40,7 @@ export default function LayoutDefault({ children }) {
             className={
               styles.LayoutDefault_nav__link + setActiveRoute(routes[0]?.path)
             }
-            to={routes[0]}
+            to={routes[0]?.path}
           >
             {routes[0]?.name}
           </Link>
@@ -48,7 +48,7 @@ export default function LayoutDefault({ children }) {
             className={
               styles.LayoutDefault_nav__link + setActiveRoute(routes[1]?.path)
             }
-            to={routes[1]?.name}
+            to={routes[1]?.path}
           >
             {routes[1]?.name}
           </Link>

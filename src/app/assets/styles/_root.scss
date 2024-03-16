@@ -6,31 +6,12 @@
   --fifth-color: #49adff;
   --sixth-color: #94cfff;
   --seventh-color: #d9d9d9;
-  --eighth-color: #e3f3ff;
+  --eighth-color: #e3f3ff; 
   --ninth-color: #fa3939;
   --tenth-color: #ffffff;
 
-  --indentation-ver-big: 60px;
-  --indentation-big: 40px;
-  --indentation: 28px;
-  --indentation-small: 20px;
-
   ._dark {
-    --third-color: #fafafa;
-    --fourth-color: #1e1e1e;
-  }
-
-  @media (max-width: 920px) {
-    --indentation-ver-big: 52px;
-    --indentation-big: 32px;
-    --indentation: 24px;
-    --indentation-small: 16px;
-  }
-
-  @media (max-width: 576px) {
-    --indentation-ver-big: 40px;
-    --indentation-big: 28px;
-    --indentation: 20px;
-    --indentation-small: 12px;
+    --fourth-color: #ffffff;
+    --tenth-color: #1b1b1b;
   }
 }

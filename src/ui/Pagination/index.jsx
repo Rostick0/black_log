@@ -20,15 +20,15 @@ export default function Pagination({ className, totalPages }) {
           <path
             d="M12.0832 5.83329L7.9165 9.99996L12.0832 14.1666"
             stroke="var(--tenth-color)"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Button>
-      <div className={styles.Pagination_list}>
-        <div className={styles.Pagination__item}>1</div>
-        <div className={styles.Pagination__item}>2</div>
+      <div className={styles.Pagination__list}>
+        <Button className={styles.Pagination__item} variant="bright_blue" disabled>1</Button>
+        <Button className={styles.Pagination__item} variant="outlined">2</Button>
       </div>
       <Button className={styles.Pagination__arrow}>
         <svg
@@ -41,9 +41,9 @@ export default function Pagination({ className, totalPages }) {
           <path
             d="M7.91683 14.1667L12.0835 10L7.91683 5.83337"
             stroke="var(--tenth-color)"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Button>

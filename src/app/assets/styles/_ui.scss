@@ -9,10 +9,20 @@
   }
 }
 
+button.btn-circle {
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  width: 36px;
+  height: 36px;
+}
+
 .table {
+  width: 100%;
+
   &-tr {
     &:last-child {
-      th,
       td {
         padding-bottom: 0;
       }
@@ -27,8 +37,8 @@
   }
 
   &-td {
-    padding-right: 20px;
-    padding-bottom: 16px;
+    padding-right: 8px;
+    padding-bottom: 8px;
 
     &:last-child {
       padding-right: 0;
@@ -36,16 +46,20 @@
   }
 
   .table-btn {
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    padding: 2px;
-    width: 36px;
-    height: 36px;
+    @extend .btn-circle;
   }
 
   .table-item-action {
     width: 36px;
+  }
+}
+
+.filter {
+  &-inputs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 12px 20px;
+    margin-bottom: 20px;
   }
 }
 
