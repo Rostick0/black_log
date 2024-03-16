@@ -1,0 +1,27 @@
+.ProfileBalanceItem {
+  border: 1px solid var(--sixth-color);
+  border-radius: 12px;
+  padding: 20px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  &__count {
+    margin-left: auto;
+  }
+
+  &__bottom {
+    display: flex;
+    grid-gap: 20px;
+    justify-content: end;
+  }
+
+  &__btn {
+    font-size: 16px;
+  }
+}
