@@ -24,7 +24,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--first-color) #dedede;
+  scrollbar-color: var(--third-color) var(--tenth-color);
 }
 
 @media (min-width: 1024px) {
@@ -32,10 +32,10 @@
     width: 8px;
   }
   *::-webkit-scrollbar-track {
-    background: #dedede;
+    background: var(--tenth-color);
   }
   *::-webkit-scrollbar-thumb {
-    background-color: var(--first-color);
+    background-color: var(--third-color);
     border-radius: 8px;
   }
 }
