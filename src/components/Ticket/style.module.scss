@@ -1,0 +1,25 @@
+.Ticket {
+  border: 1px solid var(--sixth-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__date {
+    color: var(--first-color);
+  }
+
+  &__bottom {
+    border-top: 1px solid var(--sixth-color);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+}

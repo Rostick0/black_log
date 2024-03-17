@@ -37,4 +37,10 @@
   &.red {
     background-color: var(--ninth-color);
   }
+
+  &.white {
+    background-color: var(--tenth-color);
+    color: var(--fourth-color);
+    box-shadow: 0 0 12px 0 #1b1b1b1f;
+  }
 }
