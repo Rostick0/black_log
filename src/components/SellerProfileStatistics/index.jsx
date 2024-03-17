@@ -2,17 +2,6 @@ import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function SellerProfileStatistics() {
-  //   const data = Array.from(Array(16).keys()).map((item) => ({
-  //     id: item,
-  //     link: "westernunion.com",
-  //     type: "verified",
-  //     country: "US",
-  //     state: "IN",
-  //     cc: "N/A",
-  //     seller: "xsirien",
-  //     price: "10$",
-  //   }));
-
   return (
     <div className={styles.SellerProfileStatistics}>
       <Title variant="small">Your purchases</Title>

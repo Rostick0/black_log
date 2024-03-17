@@ -1,0 +1,12 @@
+.SellerProfileBasket {
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+}

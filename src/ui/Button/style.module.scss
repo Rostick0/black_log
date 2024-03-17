@@ -38,6 +38,12 @@
     background-color: var(--ninth-color);
   }
 
+  &.red-outlined {
+    background-color: transparent;
+    border-color: var(--ninth-color);
+    color: var(--ninth-color);
+  }
+
   &.white {
     background-color: var(--tenth-color);
     color: var(--fourth-color);

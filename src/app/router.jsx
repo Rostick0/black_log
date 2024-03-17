@@ -23,6 +23,7 @@ const ClientProfileTransactions = lazy(() =>
   import("../pages/Client/ProfileTransactions")
 );
 
+const SellerProfileBasket = lazy(() => import("../pages/Seller/ProfileBasket"));
 const SellerProfileStatistics = lazy(() =>
   import("../pages/Seller/ProfileStatistics")
 );
@@ -47,14 +48,14 @@ export const ROUTE_NAMES = {
   },
   seller: {
     profile: {
+      basket: "/seller/profile/basket",
       statistics: "/seller/profile/statistics",
     },
   },
   support: {
     tickets: "/support/tickets",
     requests: "/support/requests",
-    profile: {
-    },
+    profile: {},
   },
 };
 
@@ -94,10 +95,14 @@ const AppRouter = () => {
         ></Route>
 
         <Route
+          path={ROUTE_NAMES.seller.profile.basket}
+          element={<SellerProfileBasket />}
+        ></Route>
+        <Route
           path={ROUTE_NAMES.seller.profile.statistics}
           element={<SellerProfileStatistics />}
         ></Route>
-        
+
         <Route
           path={ROUTE_NAMES.support.tickets}
           element={<SupportTickets />}
