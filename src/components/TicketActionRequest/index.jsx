@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import styles from "./style.module.scss";
 import SelectForm from "../../Form/SelectForm";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
+import InputForm from "../../Form/InputForm";
 
-export default function TicketActionRecipient({ id, status }) {
-  const { handleSubmit, register, setValue, resetField } = useForm();
+export default function TicketActionRequest({ id, status }) {
+  const { handleSubmit, register, setValue } = useForm();
 
   useEffect(() => {
     setValue('status', status);
@@ -27,9 +28,9 @@ export default function TicketActionRecipient({ id, status }) {
   ];
 
   return (
-    <div className={styles.TicketActionRecipient}>
+    <div className={styles.TicketActionRequest}>
       <form
-        className={styles.TicketActionRecipient__form}
+        className={styles.TicketActionRequest__form}
         onSubmit={handleSubmit(onSubmit)}
         method="POST"
       >
@@ -43,9 +44,19 @@ export default function TicketActionRecipient({ id, status }) {
         />
         <Button>save</Button>
       </form>
-      <Button className={styles.TicketActionRecipient__btn} variant="outlined">
-        Go to the application
-      </Button>
+      <form
+        className={styles.TicketActionRequest__form}
+        onSubmit={handleSubmit(onSubmit)}
+        method="POST"
+      >
+        <InputForm
+          label="Refund amount"
+          name="amount"
+          register={register}
+          type="number"
+        />
+        <Button>Refund</Button>
+      </form>
     </div>
   );
 }

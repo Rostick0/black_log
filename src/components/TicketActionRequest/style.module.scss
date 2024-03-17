@@ -1,0 +1,10 @@
+.TicketActionRequest {
+  display: flex;
+  justify-content: space-between;
+  
+  &__form {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 20px;
+  }
+}

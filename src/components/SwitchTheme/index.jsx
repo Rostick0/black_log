@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 export default function SwitchTheme({}) {
   const { theme, toggleTheme } = useTheme();
-console.log(theme);
+
   const activeClass = useMemo(() => theme === "light" ? "" : setClassName(styles.active), [theme])
 
   return (

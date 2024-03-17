@@ -1,0 +1,12 @@
+.SupportRequestInfo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+
+  &__item {
+    &_name {
+      color: var(--seventh-color);
+      margin-bottom: 12px;
+    }
+  }
+}

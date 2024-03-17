@@ -34,7 +34,7 @@ export default function SelectForm({
   useEffect(() => {
     if (typeof setValueHookForm !== "function") return;
 
-    setValueHookForm(name, value);
+    setValueHookForm(name, value?.value);
   }, [value]);
 
   const styleSelectClassName = className ? " " + className : "";
@@ -57,7 +57,6 @@ export default function SelectForm({
       onBlur={(e) => {
         // e.stopPropagation();
         console.log(switchInput.current !== e.target);
-        // console.log(switchInput.current !== e.target);
         if (switchInput.current !== e.target) return;
 
         setActive(true);
@@ -71,19 +70,25 @@ export default function SelectForm({
           className={styles.SelectForm__switch + styleSelectClassName}
           onClick={() => setActive(!active)}
         >
+          <input {...register(name, rules)} hidden />
           <input
-            className={stylesInput.input + " " + styles.SelectForm__input + styleInputClassName}
+            className={
+              stylesInput.input +
+              " " +
+              styles.SelectForm__input +
+              styleInputClassName
+            }
             // onFocus={e => e.preventDefault()}
             // onMouseDown={(e) => e.preventDefault()}
-            ref={switchInput}
             onBlur={(e) => {
               console.log(e);
             }}
+            ref={switchInput}
             placeholder={placeholder}
-            defaultValue={value}
-            {...register(name, rules)}
+            defaultValue={value?.value}
+            value={value?.name}
             readOnly
-          ></input>
+          />
           {withIcon && (
             <svg
               className={styles.SelectForm__icon}
@@ -115,7 +120,7 @@ export default function SelectForm({
                     key={item.value}
                     className={styles.SelectForm__item}
                     onClick={() => {
-                      setValue(`${item?.name}`);
+                      setValue(item);
                       setActive(false);
                       typeof onChange === "function" &&
                         onChange({
