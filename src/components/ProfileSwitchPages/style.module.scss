@@ -4,9 +4,10 @@
 
   &__link {
     background-color: var(--eighth-color);
+    color: var(--tenth-color);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    color: var(--tenth-color);
+    box-shadow: 0 -4px 12px -4px #1b1b1b1f;
     font-size: 24px;
     font-weight: 600;
     padding: 12px 40px;

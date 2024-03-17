@@ -1,0 +1,13 @@
+.ProfileBasket {
+  &__total {
+    border-top: 1px solid var(--sixth-color);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    margin: 20px 0;
+  }
+
+  &__btn {
+    width: 100%;
+  }
+}
