@@ -5,6 +5,7 @@ import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
 import TicketActionSendler from "../TicketActionSendler";
 import TicketActionRecipient from "../TicketActionRecipient";
+import SupportTicketInfo from "../SupportTicketInfo";
 
 export default function SupportTickets() {
   const data = Array.from(Array(3).keys()).map((item) => ({
@@ -65,7 +66,7 @@ export default function SupportTickets() {
           <Ticket
             key={item.id}
             {...item}
-            info={item.comment}
+            info={<SupportTicketInfo {...item} />}
             action={<TicketActionRecipient status={item.status} />}
           />
         ))}
