@@ -1,0 +1,17 @@
+.SupportTickets {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    column-gap: 20px;
+    margin-left: auto;
+  }
+}

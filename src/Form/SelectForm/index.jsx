@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./style.module.scss";
+import stylesInput from "../../ui/Input/style.module.scss";
 import Control from "../../ui/Control";
 // import Input from '../Input/Input';
 
@@ -17,7 +18,7 @@ export default function SelectForm({
   rules,
   setValueHookForm,
   items,
-  isIcon = false,
+  withIcon = false,
   withReset = true,
   resetField,
 }) {
@@ -71,7 +72,7 @@ export default function SelectForm({
           onClick={() => setActive(!active)}
         >
           <input
-            className={styles.SelectForm__input + styleInputClassName}
+            className={stylesInput.input + " " + styles.SelectForm__input + styleInputClassName}
             // onFocus={e => e.preventDefault()}
             // onMouseDown={(e) => e.preventDefault()}
             ref={switchInput}
@@ -83,7 +84,7 @@ export default function SelectForm({
             {...register(name, rules)}
             readOnly
           ></input>
-          {isIcon && (
+          {withIcon && (
             <svg
               className={styles.SelectForm__icon}
               width="21"

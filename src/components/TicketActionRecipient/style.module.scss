@@ -1,0 +1,12 @@
+.TicketActionRecipient {
+  &__form {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__btn {
+    width: 100%;
+  }
+}

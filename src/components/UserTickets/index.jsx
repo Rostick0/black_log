@@ -5,7 +5,7 @@ import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
 import TicketActionSendler from "../TicketActionSendler";
 
-export default function Tickets() {
+export default function UserTickets() {
   const data = Array.from(Array(3).keys()).map((item) => ({
     id: item,
     date: "12.03.2024",
@@ -19,10 +19,10 @@ export default function Tickets() {
   }));
 
   return (
-    <div className={styles.Tickets}>
-      <div className={styles.Tickets__top}>
-        <Title className={styles.Tickets__title}>Tickets</Title>
-        <div className={styles.Tickets__buttons}>
+    <div className={styles.UserTickets}>
+      <div className={styles.UserTickets__top}>
+        <Title className={styles.UserTickets__title}>Tickets</Title>
+        <div className={styles.UserTickets__buttons}>
           <Button className="btn-circle" variant="white">
             <svg
               width="20"
@@ -59,7 +59,7 @@ export default function Tickets() {
           </Button>
         </div>
       </div>
-      <div className={styles.Tickets__list}>
+      <div className={styles.UserTickets__list}>
         {data?.map((item) => (
           <Ticket
             key={item.id}

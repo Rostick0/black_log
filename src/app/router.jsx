@@ -9,13 +9,22 @@ const Market = lazy(() => import("../pages/Market"));
 const Requests = lazy(() => import("../pages/Requests"));
 
 const ClientTickets = lazy(() => import("../pages/Client/Tickets"));
-const ClientProfileBalance = lazy(() => import("../pages/Client/ProfileBalance"));
+const ClientProfileBalance = lazy(() =>
+  import("../pages/Client/ProfileBalance")
+);
 const ClientProfileBasket = lazy(() => import("../pages/Client/ProfileBasket"));
-const ClientProfileProducts = lazy(() => import("../pages/Client/ProfileProducts"));
-const ClientProfileSettings = lazy(() => import("../pages/Client/ProfileSettings"));
+const ClientProfileProducts = lazy(() =>
+  import("../pages/Client/ProfileProducts")
+);
+const ClientProfileSettings = lazy(() =>
+  import("../pages/Client/ProfileSettings")
+);
 const ClientProfileTransactions = lazy(() =>
   import("../pages/Client/ProfileTransactions")
 );
+
+const SupportTickets = lazy(() => import("../pages/Support/Tickets"));
+
 
 export const ROUTE_NAMES = {
   main: "/",
@@ -31,6 +40,9 @@ export const ROUTE_NAMES = {
       settings: "/client/profile/settings",
       transactions: "/client/profile/transactions",
     },
+  },
+  support: {
+    tickets: "/support/tickets",
   },
 };
 
@@ -67,6 +79,11 @@ const AppRouter = () => {
         <Route
           path={ROUTE_NAMES.client.profile.transactions}
           element={<ClientProfileTransactions />}
+        ></Route>
+
+        <Route
+          path={ROUTE_NAMES.support.tickets}
+          element={<SupportTickets />}
         ></Route>
       </Routes>
     </Suspense>

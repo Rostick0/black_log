@@ -2,14 +2,7 @@
   position: relative;
 
   &__input {
-    border: 1px solid var(--sixth-color);
-    border-radius: 40px;
-    color: var(--fourth-color);
     cursor: pointer;
-    font-family: "Gilroy", sans-serif;
-    font-size: 16px;
-    padding: 12px 40px;
-    width: 100%;
   }
 
   &__icon {

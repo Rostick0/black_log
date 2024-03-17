@@ -1,4 +1,4 @@
-import ComponentUserTickets from "../../../components/UserTickets";
+import ComponentSupportTickets from "../../../components/SupportTickets";
 import LayoutDefault from "../../../layout/LayoutDefault";
 import styles from "./style.module.scss";
 
@@ -7,7 +7,7 @@ export default function Tickets() {
     <LayoutDefault>
       <div className={styles.Tickets}>
         <div className="container">
-          <ComponentUserTickets />
+          <ComponentSupportTickets />
         </div>
       </div>
     </LayoutDefault>
