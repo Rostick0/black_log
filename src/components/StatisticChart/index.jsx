@@ -1,60 +1,33 @@
 // StatisticChart
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Filler,
-  Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Tooltip,
+//   Filler,
+//   Legend,
+// } from "chart.js";
+// import ChartJS from "chart.js/auto"
+// import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
+import "chartjs-plugin-style";
+
 import _ from "lodash";
 import styles from "./style.module.scss";
+import { useTheme } from "../../app/context/ThemeContext";
+import { useEffect, useMemo, useRef } from "react";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Filler,
-  Legend
-);
-
-const options = {
-  responsive: true,
-  scales: {
-    yAxes: [
-      {
-        gridLines: {
-          color: "red",
-        },
-      },
-    ],
-    xAxes: [
-      {
-        gridLines: {
-          color: "blue",
-        },
-      },
-    ],
-  },
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  elements: {
-    line: {
-      // tension: 0.1,
-    },
-    point: {
-      radius: 0,
-    },
-  },
-};
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Tooltip,
+//   Filler,
+//   Legend
+// );
 
 const labels = [
   "Aug 2018",
@@ -69,52 +42,146 @@ const labels = [
   "May 2019",
 ];
 
+const datasetsDefault = (isLight) => ({
+  fill: true,
+  pointHoverBackgroundColor: isLight ? "#f2f7fe" : "#22272f",
+  backgroundColor: "transparent",
+});
+
 export default function StatisticChart() {
+  const { theme, isLight } = useTheme();
+  const chartRef = useRef(null);
+
+  const options = useMemo(
+    () => ({
+      responsive: true,
+      scales: {
+        x: {
+          border: {
+            display: false,
+          },
+          grid: {
+            display: false,
+          },
+          ticks: {
+            // alignment: "start",
+            color: "#D9D9D9",
+            font: {
+              size: 17,
+            },
+          },
+        },
+        y: {
+          border: {
+            display: false,
+          },
+          grid: {
+            color: "#E3F3FF",
+          },
+          ticks: {
+            display: false,
+          },
+        },
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          backgroundColor: isLight ? "#fff" : "#000",
+          displayColors: false,
+          padding: {
+            left: 30,
+            right: 30,
+            top: 12,
+            bottom: 12,
+          },
+          bodyFont: {
+            size: 14,
+            weight: 700,
+          },
+          caretPadding: 18,
+          callbacks: {
+            title: function (context) {
+              return "";
+            },
+            labelTextColor: function (context) {
+              return "#005DA9";
+            },
+          },
+          intersect: false,
+          shadowOffsetX: 3,
+          shadowOffsetY: 3,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.3)",
+          yAlign: "bottom",
+          // bevelWidth: 3,
+          // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+          // bevelShadowColor: "rgba(0, 0, 0, 0.5)",
+          // shadowOffsetX: 3,
+          // shadowOffsetY: 3,
+          // shadowBlur: 10,
+          // shadowColor: "rgba(0, 0, 0, 0.5)",
+          // position: "",
+          // display: false,
+        },
+      },
+      elements: {
+        line: {
+          tension: 0.2,
+        },
+        point: {
+          radius: 0,
+          // pointStyle: "rectRot",
+          // borderDash: 1,
+          hitRadius: 15,
+          hoverBorderWidth: 4,
+          hoverRadius: 12,
+          // HoverBackgroundColor: 'red',
+        },
+        // pointHoverBackgroundColor: "fff",
+      },
+    }),
+    [theme]
+  );
+
   const data = {
     labels,
     datasets: [
       {
-        fill: true,
-        label: "Dataset 2",
         data: labels.map(() => _.random(1000, 2500)),
         borderColor: "#018CFE",
-        backgroundColor: "transparent",
+        ...datasetsDefault(isLight),
       },
       {
-        fill: true,
-        label: "Dataset 2",
         data: labels.map(() => _.random(1000, 2500)),
         borderColor: "#94CFFF",
-        backgroundColor: "transparent",
+        ...datasetsDefault(isLight),
       },
     ],
-
-    // options: {
-    //   scales: {
-    //     xAxes: [
-    //       {
-    //         gridLines: {
-    //           color: "red", // устанавливаем цвет сетки по x-оси
-    //         },
-    //       },
-    //     ],
-    //     yAxes: [
-    //       {
-    //         gridLines: {
-    //           color: "red", // устанавливаем цвет сетки по y-оси
-    //         },
-    //       },
-    //     ],
-    //   },
-    // },
+    options,
   };
+
+  useEffect(() => {
+    const ctx = chartRef.current.getContext("2d");
+
+    const myChart = new Chart(ctx, {
+      type: "line",
+      data,
+    });
+
+    return () => {
+      myChart.destroy();
+    };
+  }, []);
 
   return (
     <div className={styles.StatisticChart}>
       <div className={styles.StatisticChart__top}>
         <div className={styles.StatisticChart__title}>Total sales</div>
       </div>
-      <Line options={options} data={data} />
+      <canvas ref={chartRef} />
+      {/* <Line options={options} data={data} /> */}
     </div>
   );
 }

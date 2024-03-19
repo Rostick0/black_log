@@ -26,7 +26,7 @@ export default function ProfileTransactions() {
   }));
 
   const setColorStatus = (status) => {
-    return " " + statuses.find((item) => item.name == status)?.class;
+    return " " + statuses.find((item) => item.name === status)?.class;
   };
 
   return (

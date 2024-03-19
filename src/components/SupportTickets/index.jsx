@@ -3,7 +3,6 @@ import Button from "../../ui/Button";
 import styles from "./style.module.scss";
 import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
-import TicketActionSendler from "../TicketActionSendler";
 import TicketActionRecipient from "../TicketActionRecipient";
 import SupportTicketInfo from "../SupportTicketInfo";
 

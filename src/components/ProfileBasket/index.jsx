@@ -1,7 +1,6 @@
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
-import _ from "lodash";
 
 export default function ProfileProducts() {
   const data = Array.from(Array(5).keys()).map((item) => ({

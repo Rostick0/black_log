@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import styles from "./style.module.scss";
 import SelectForm from "../../Form/SelectForm";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 export default function TicketActionRecipient({ id, status }) {
-  const { handleSubmit, register, setValue, resetField } = useForm();
+  const { handleSubmit, register, setValue } = useForm();
 
   useEffect(() => {
     setValue('status', status);

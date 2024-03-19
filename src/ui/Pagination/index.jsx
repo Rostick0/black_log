@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 
 export default function Pagination({ className, totalPages }) {
   const styleClassName = setClassName(className);
-  const [active, setActive] = useState(1);
+  // const [active, setActive] = useState(1);
 
   return (
     <div className={styles.Pagination + styleClassName}>
