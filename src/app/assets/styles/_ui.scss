@@ -9,7 +9,8 @@
   }
 }
 
-button.btn-circle {
+button.btn-circle,
+span.btn-circle {
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -19,6 +20,7 @@ button.btn-circle {
 }
 
 .table {
+  table-layout: fixed;
   width: 100%;
 
   &-tr {
