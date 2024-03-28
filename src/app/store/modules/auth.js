@@ -7,15 +7,22 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     login: build.mutation({
-      query: (body) => ({
+      query: ({ body }) => ({
         url: "login",
         method: "POST",
         body,
       }),
-      providesTags: (result, error, id) => [{ type: "userSettingsApi" }],
+      providesTags: (result, error, id) => [{ type: "User" }],
     }),
-    // register,
+    register: build.mutation({
+      query: ({ body }) => ({
+        url: "register",
+        method: "POST",
+        body,
+      }),
+      providesTags: (result, error, id) => [{ type: "User" }],
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

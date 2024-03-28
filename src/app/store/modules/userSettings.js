@@ -1,28 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
 
-export const userSettingsApi = createApi({
-  reducerPath: "userSettingsApi",
-  tagTypes: ["userSettingsApi"],
+export const userApi = createApi({
+  reducerPath: "userApi",
+  tagTypes: ["User"],
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND, headers: {} }),
   endpoints: (build) => ({
-    userSettingsGet: build.query({
+    userGet: build.query({
       query: () => ({
-        url: "/user/settings",
+        url: "user/settings",
         // params,
       }),
-      providesTags: (result, error, id) => [{ type: "userSettingsApi" }],
+      providesTags: (result, error, id) => [{ type: "User" }],
     }),
-    userSettingsUpdate: build.mutation({
+    userUpdate: build.mutation({
       query: ({ body }) => ({
-        url: "/user/settings",
+        url: "user/settings",
         method: "PUT",
         body,
       }),
-      invalidatesTags: [{ type: "userSettingsApi" }],
+      invalidatesTags: [{ type: "User" }],
     }),
   }),
 });
 
-export const { useUserSettingsGetQuery, useUserSettingsUpdateMutation } =
-  userSettingsApi;
+export const { useUserGetQuery, useUserUpdateMutation } = userApi;

@@ -5,17 +5,38 @@ import MyLink from "./../../ui/MyLink";
 import { ROUTE_NAMES } from "./../../app/router";
 import { useForm } from "react-hook-form";
 import InputForm from "../../Form/InputForm";
-import { errorsMessage, setErrorMessage } from "../../app/utils/error";
+import {
+  errorsMessage,
+  setErrorMessage,
+  setErrorMessageForm,
+} from "../../app/utils/error";
+import { useRegisterMutation } from "../../app/store/modules/auth";
+import { setToken } from "../../app/utils/token";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors },
   } = useForm();
 
+  const [reg, result] = useRegisterMutation();
+  const navigate = useNavigate();
+
   const onSubmit = async (values) => {
-    console.log(values);
+    const res = await reg({ body: values });
+
+    if (res?.error && res?.error?.data?.errors) {
+      setErrorMessageForm(res?.error?.data?.errors, setError);
+
+      return;
+    }
+
+    if (res?.data?.token) setToken(res?.data?.token);
+
+    navigate(ROUTE_NAMES.main);
   };
 
   return (

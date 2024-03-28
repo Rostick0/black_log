@@ -17,13 +17,18 @@ export default function Login() {
     register,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      login: "John Doe",
+      password: "password123",
+    },
+  });
 
   const [login, result] = useLoginMutation();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    const res = await login(values);
+    const res = await login({ body: values });
 
     if (res?.error) {
       setError("login", res?.error?.data);
@@ -35,16 +40,15 @@ export default function Login() {
     navigate(ROUTE_NAMES.main);
   };
 
-  const error = (v) => {
-    console.log(v);
-  };
+  console.log(errors);
 
   return (
     <div className={styles.Login + " auth"}>
       <Title className="auth-title">Login</Title>
       <form
         className={styles.Login__form + " form auth-form"}
-        onSubmit={handleSubmit(onSubmit, error)}
+        method="POST"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="form-inputs">
           <InputForm

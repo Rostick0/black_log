@@ -8,7 +8,7 @@ export const withdrawalsApi = createApi({
   endpoints: (build) => ({
     withdrawalsCreate: build.mutation({
       query: ({ body }) => ({
-        url: "/withdrawals",
+        url: "withdrawals",
         method: "POST",
         body,
       }),

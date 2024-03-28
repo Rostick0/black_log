@@ -9,7 +9,7 @@ import { sellerStatsApi } from "./modules/sellerStats";
 import { ticketApi } from "./modules/ticket";
 import { ticketChatApi } from "./modules/ticketChat";
 import { transactionsApi } from "./modules/transactions";
-import { userSettingsApi } from "./modules/userSettings";
+import { userApi } from "./modules/userSettings";
 import { withdrawalsApi } from "./modules/withdrawal";
 
 export const store = configureStore({
@@ -24,7 +24,7 @@ export const store = configureStore({
     [ticketApi.reducerPath]: ticketApi.reducer,
     [ticketChatApi.reducerPath]: ticketChatApi.reducer,
     [transactionsApi.reducerPath]: transactionsApi.reducer,
-    [userSettingsApi.reducerPath]: userSettingsApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
     [withdrawalsApi.reducerPath]: withdrawalsApi.reducer,
   },
   middleware: (getDefaultMiddlware) =>
@@ -39,7 +39,7 @@ export const store = configureStore({
       ticketApi.middleware,
       ticketChatApi.middleware,
       transactionsApi.middleware,
-      userSettingsApi.middleware,
+      userApi.middleware,
       withdrawalsApi.middleware,
     ),
 });
