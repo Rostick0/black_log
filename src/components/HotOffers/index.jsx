@@ -1,9 +1,10 @@
+import { useOffersGetQuery } from "../../app/store/modules/offer";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function HotOffers() {
-  const data = Array.from(Array(16).keys()).map((item) => ({
+  const dataa = Array.from(Array(16).keys()).map((item) => ({
     id: item,
     link: "wm.com",
     balance: "N/A",
@@ -11,6 +12,8 @@ export default function HotOffers() {
     state: "N/A",
     price: "10$",
   }));
+
+  const { data } = useOffersGetQuery();
 
   return (
     <div className={styles.HotOffers}>
@@ -28,8 +31,8 @@ export default function HotOffers() {
             </tr>
           </thead>
           <tbody>
-            {data?.length &&
-              data?.map((item) => (
+            {dataa?.length &&
+              dataa?.map((item) => (
                 <tr className="table-tr" key={item.id}>
                   <td className="table-td">{item.link}</td>
                   <td className="table-td">{item.balance}</td>

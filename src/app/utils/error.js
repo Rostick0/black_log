@@ -1,6 +1,12 @@
-export const setErrorMessage = ({ formField, t = null } = {}) => {
-  if (typeof t === "function" && !formField?.message && formField?.type)
-    return t("form_" + formField?.type);
+export const errorsMessage = {
+  required: "Required field",
+  minLenght: (value) => `Min lenght ${value}`,
+  maxLenght: (value) => `Max lenght ${value}`,
+};
+
+export const setErrorMessage = ({ formField, isMessage = false } = {}) => {
+  if (!formField?.message && formField?.type)
+    return errorsMessage?.[formField?.type];
 
   return formField?.message ? formField?.message : formField?.type;
 };

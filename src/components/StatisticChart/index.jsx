@@ -42,6 +42,50 @@ const labels = [
   "May 2019",
 ];
 
+// const plugins = (isLight) => ({
+//   legend: {
+//     display: false,
+//   },
+//   tooltip: {
+//     backgroundColor: isLight ? "#fff" : "#000",
+//     displayColors: false,
+//     padding: {
+//       left: 30,
+//       right: 30,
+//       top: 12,
+//       bottom: 12,
+//     },
+//     bodyFont: {
+//       size: 14,
+//       weight: 700,
+//     },
+//     caretPadding: 18,
+//     callbacks: {
+//       title: function (context) {
+//         return "";
+//       },
+//       labelTextColor: function (context) {
+//         return "#005DA9";
+//       },
+//     },
+//     intersect: false,
+//     shadowOffsetX: 3,
+//     shadowOffsetY: 3,
+//     shadowBlur: 10,
+//     shadowColor: "rgba(0, 0, 0, 0.3)",
+//     yAlign: "bottom",
+//     // bevelWidth: 3,
+//     // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+//     // bevelShadowColor: "rgba(0, 0, 0, 0.5)",
+//     // shadowOffsetX: 3,
+//     // shadowOffsetY: 3,
+//     // shadowBlur: 10,
+//     // shadowColor: "rgba(0, 0, 0, 0.5)",
+//     // position: "",
+//     // display: false,
+//   },
+// });
+
 const datasetsDefault = (isLight) => ({
   fill: true,
   pointHoverBackgroundColor: isLight ? "#f2f7fe" : "#22272f",
@@ -101,6 +145,7 @@ export default function StatisticChart() {
             weight: 700,
           },
           caretPadding: 18,
+          yAlign: "bottom",
           callbacks: {
             title: function (context) {
               return "";
@@ -109,21 +154,10 @@ export default function StatisticChart() {
               return "#005DA9";
             },
           },
-          intersect: false,
-          shadowOffsetX: 3,
-          shadowOffsetY: 3,
+          boderWidth: 2,
           shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.3)",
-          yAlign: "bottom",
-          // bevelWidth: 3,
-          // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
-          // bevelShadowColor: "rgba(0, 0, 0, 0.5)",
-          // shadowOffsetX: 3,
-          // shadowOffsetY: 3,
-          // shadowBlur: 10,
-          // shadowColor: "rgba(0, 0, 0, 0.5)",
-          // position: "",
-          // display: false,
+          shadowOffsetX: 5,
+          shadowOffsetY: 5,
         },
       },
       elements: {
@@ -152,6 +186,10 @@ export default function StatisticChart() {
         data: labels.map(() => _.random(1000, 2500)),
         borderColor: "#018CFE",
         ...datasetsDefault(isLight),
+        shadowColor: "rgba(0, 0, 0, 0.5)",
+        shadowBlur: 10,
+        shadowOffsetX: 5,
+        shadowOffsetY: 5,
       },
       {
         data: labels.map(() => _.random(1000, 2500)),
@@ -159,7 +197,6 @@ export default function StatisticChart() {
         ...datasetsDefault(isLight),
       },
     ],
-    options,
   };
 
   useEffect(() => {
@@ -168,6 +205,7 @@ export default function StatisticChart() {
     const myChart = new Chart(ctx, {
       type: "line",
       data,
+      options,
     });
 
     return () => {
