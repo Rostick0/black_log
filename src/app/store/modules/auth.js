@@ -12,6 +12,7 @@ export const authApi = createApi({
         method: "POST",
         body,
       }),
+      providesTags: (result, error, id) => [{ type: "userSettingsApi" }],
     }),
     // register,
   }),

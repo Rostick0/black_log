@@ -3,7 +3,7 @@ import { URL_BACKEND } from "../utils";
 
 export const userSettingsApi = createApi({
   reducerPath: "userSettingsApi",
-  tagTypes: ["UserSettings"],
+  tagTypes: ["userSettingsApi"],
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND, headers: {} }),
   endpoints: (build) => ({
     userSettingsGet: build.query({
@@ -11,7 +11,7 @@ export const userSettingsApi = createApi({
         url: "/user/settings",
         // params,
       }),
-      providesTags: (result, error, id) => [{ type: "UserSettings" }],
+      providesTags: (result, error, id) => [{ type: "userSettingsApi" }],
     }),
     userSettingsUpdate: build.mutation({
       query: ({ body }) => ({
@@ -19,7 +19,7 @@ export const userSettingsApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: [{ type: "UserSettings" }],
+      invalidatesTags: [{ type: "userSettingsApi" }],
     }),
   }),
 });

@@ -8,19 +8,31 @@ import { useForm } from "react-hook-form";
 import InputForm from "../../Form/InputForm";
 import { setErrorMessage, errorsMessage } from "../../app/utils/error";
 import { useLoginMutation } from "../../app/store/modules/auth";
+import { setToken } from "../../app/utils/token";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors },
   } = useForm();
 
   const [login, result] = useLoginMutation();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    await login(values);
-    console.log(result);
+    const res = await login(values);
+
+    if (res?.error) {
+      setError("login", res?.error?.data);
+      return;
+    }
+
+    if (res?.data?.token) setToken(res?.data?.token);
+
+    navigate(ROUTE_NAMES.main);
   };
 
   const error = (v) => {
@@ -37,8 +49,8 @@ export default function Login() {
         <div className="form-inputs">
           <InputForm
             placeholder="Name/Login"
-            name="name"
-            error={setErrorMessage({ formField: errors?.name })}
+            name="login"
+            error={setErrorMessage({ formField: errors?.login })}
             register={register}
             rules={{ required: true, maxLenght: 255 }}
           />
