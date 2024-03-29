@@ -3,7 +3,6 @@ import LayoutDefault from "../../../layout/LayoutDefault";
 import styles from "./style.module.scss";
 
 export default function Requests() {
-  console.log(5);
   return (
     <LayoutDefault>
       <div className={styles.Requests}>

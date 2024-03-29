@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const returnApi = createApi({
   reducerPath: "returnApi",
@@ -7,8 +8,11 @@ export const returnApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     returnsGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "returns",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -24,6 +28,9 @@ export const returnApi = createApi({
       query: ({ body }) => ({
         url: "returns",
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
@@ -32,6 +39,9 @@ export const returnApi = createApi({
       query: ({ body, id }) => ({
         url: `returns/${id}`,
         method: "PATCH",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
@@ -40,6 +50,9 @@ export const returnApi = createApi({
       query: ({ body, id }) => ({
         url: `returns/${id}/close`,
         method: "PATCH",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
@@ -47,6 +60,9 @@ export const returnApi = createApi({
     returnGet: build.query({
       query: ({ id }) => ({
         url: `returns/${id}`,
+        headers: {
+          ...getTokenHeader(),
+        },
       }),
     }),
   }),

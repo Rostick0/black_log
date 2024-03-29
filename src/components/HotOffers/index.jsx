@@ -1,4 +1,4 @@
-import { useOffersGetQuery } from "../../app/store/modules/offer";
+import { useOffersGetHotQuery } from "../../app/store/modules/offer";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
@@ -6,14 +6,14 @@ import styles from "./style.module.scss";
 export default function HotOffers() {
   const dataa = Array.from(Array(16).keys()).map((item) => ({
     id: item,
-    link: "wm.com",
+    archive_link: "wm.com",
     balance: "N/A",
     type: "N/A",
     state: "N/A",
-    price: "10$",
+    amount: "10",
   }));
 
-  const { data } = useOffersGetQuery();
+  const { data } = useOffersGetHotQuery();
 
   return (
     <div className={styles.HotOffers}>
@@ -34,11 +34,11 @@ export default function HotOffers() {
             {dataa?.length &&
               dataa?.map((item) => (
                 <tr className="table-tr" key={item.id}>
-                  <td className="table-td">{item.link}</td>
+                  <td className="table-td">{item.archive_link}</td>
                   <td className="table-td">{item.balance}</td>
                   <td className="table-td">{item.type}</td>
                   <td className="table-td">{item.state}</td>
-                  <td className="table-td color-ui fw-600">{item.price}</td>
+                  <td className="table-td color-ui fw-600">{item.amount}$</td>
                   <td className="table-td table-item-action">
                     <Button className="table-btn">
                       <svg

@@ -2,6 +2,7 @@ export const errorsMessage = {
   required: "Required field",
   minLenght: (value) => `Min lenght ${value}`,
   maxLenght: (value) => `Max lenght ${value}`,
+  confirm: (field) => `The ${field} confirmation does not match`,
 };
 
 export const setErrorMessageForm = (errors, setError) => {

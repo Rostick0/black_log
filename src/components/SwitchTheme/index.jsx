@@ -9,6 +9,7 @@ export default function SwitchTheme({}) {
 
   const activeClass = useMemo(() => theme === "light" ? "" : setClassName(styles.active), [theme])
 
+  
   return (
     <div className={styles.SwitchTheme}>
       <span>Dark Mode</span>

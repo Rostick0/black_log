@@ -39,7 +39,7 @@ export default function ProfileSwitchPages() {
 
   return (
     <div className={styles.ProfileSwitchPages}>
-      {data.map((item) => (
+      {data?.map((item) => (
         <Link
           key={item.link}
           className={

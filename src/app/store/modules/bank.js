@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const bankApi = createApi({
   reducerPath: "bankApi",
@@ -7,8 +8,11 @@ export const bankApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     banksGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "banks",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -23,6 +27,9 @@ export const bankApi = createApi({
     bankCreate: build.mutation({
       query: ({ body }) => ({
         url: "banks",
+        headers: {
+          ...getTokenHeader(),
+        },
         method: "POST",
         body,
       }),
@@ -32,6 +39,9 @@ export const bankApi = createApi({
       query: ({ body, id }) => ({
         url: `banks/${id}/update`,
         method: "PUT",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Banks", id: "LIST" }],
@@ -40,6 +50,9 @@ export const bankApi = createApi({
       query: ({ body, id }) => ({
         url: `banks/${id}/delete`,
         method: "DELETE",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Banks", id: "LIST" }],

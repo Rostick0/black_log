@@ -1,84 +1,108 @@
 import { useForm } from "react-hook-form";
-import InputForm from "../../../Form/InputForm";
 import InputPasswordForm from "../../../Form/InputPasswordForm";
 import LayoutProfile from "../../../layout/LayoutProfile";
 import Title from "../../../ui/Title";
 import styles from "./style.module.scss";
 import Button from "../../../ui/Button";
 import SwitchTheme from "../../../components/SwitchTheme";
+import { useUserUpdateMutation } from "../../../app/store/modules/userSettings";
+import { useSelector } from "react-redux";
+import {
+  errorsMessage,
+  setErrorMessage,
+  setErrorMessageForm,
+} from "../../../app/utils/error";
+import MailInput from "./components/MailInput";
+import { submit } from "../../../app/utils/form";
+import TelegramInput from "./components/TelegramInput";
+import NameInput from "./components/NameInput";
+import { equalFields } from "./../../../app/utils/validate";
 
 export default function ProfileSettings() {
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    setError,
+    watch,
+    formState: { errors },
+  } = useForm({});
+  // const { data } = useUserGetQuery();
+  const [userUpdate] = useUserUpdateMutation();
 
-  const iconEdit = (
-    <svg
-      width="25"
-      height="24"
-      viewBox="0 0 25 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M13.8877 6.68078L17.9809 10.7753M9.42915 19.0264L4.16602 20.5L5.63967 15.2372C5.77927 14.7387 6.04549 14.2848 6.41245 13.9196L15.4689 4.90751C16.2506 4.12964 17.5145 4.1313 18.2941 4.91122L19.7557 6.37328C20.5352 7.15304 20.5366 8.41655 19.7588 9.19805L10.7467 18.2537C10.3816 18.6206 9.92765 18.8868 9.42915 19.0264Z"
-        stroke="#018CFE"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-
-  const onSubmit = (values) => console.log(values);
-
+  const user = useSelector((state) => state.user.value);
+  const onSubmit = submit(userUpdate, setError);
+  console.log(errors);
   return (
     <LayoutProfile>
-      <form
-        className={styles.ProfileSettings}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <div className={styles.ProfileSettings}>
         <div className="">
           <Title variant="small">Your information</Title>
           <div className={styles.ProfileSettings__information}>
-            <InputForm name="name" label="Name" register={register} />
-            <InputForm
-              name="mail"
-              label="Mail"
-              register={register}
-              icon={iconEdit}
-            />
-            <InputForm
-              name="telegram"
-              label="Telegram"
-              register={register}
-              icon={iconEdit}
-            />
+            <NameInput user={user} />
+            <MailInput user={user} userUpdate={userUpdate} />
+            <TelegramInput user={user} userUpdate={userUpdate} />
           </div>
         </div>
-        <div className="">
+        <form className="" onSubmit={handleSubmit(onSubmit)} method="POST">
           <Title variant="small">Reset your password</Title>
           <div className="form-inputs">
             <InputPasswordForm
-              name="password"
+              name="current_password"
               label="Your password"
+              error={setErrorMessage({ formField: errors?.current_password })}
               register={register}
+              rules={{ required: true }}
             />
             <InputPasswordForm
-              name="password_new"
+              name="new_password"
               label="New password"
+              error={setErrorMessage({ formField: errors?.new_password })}
+              rules={{
+                required: true,
+                minLenght: {
+                  value: 8,
+                  message: errorsMessage["minLenght"](8),
+                },
+                maxLenght: {
+                  value: 255,
+                  message: errorsMessage["minLenght"](255),
+                },
+                validate: {
+                  confirm: (value) =>
+                    equalFields(
+                      value,
+                      watch("confirm_password"),
+                      errorsMessage["confirm"]("new confirm password")
+                    ),
+                },
+              }}
               register={register}
             />
             <InputPasswordForm
-              name="password_confirm"
+              name="confirm_password"
               label="New confirm password"
+              error={setErrorMessage({ formField: errors?.confirm_password })}
               register={register}
+              rules={{
+                required: true,
+                validate: {
+                  confirm: (value) =>
+                    equalFields(
+                      value,
+                      watch("new_password"),
+                      errorsMessage["confirm"]("new password")
+                    ),
+                },
+              }}
             />
           </div>
           <Button className={styles.ProfileSettings__save}>SAVE</Button>
-        </div>
+        </form>
         <div className="">
           <Title variant="small">Other settings</Title>
           <SwitchTheme />
         </div>
-      </form>
+      </div>
     </LayoutProfile>
   );
 }

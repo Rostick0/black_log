@@ -13,6 +13,8 @@ import {
 import { useRegisterMutation } from "../../app/store/modules/auth";
 import { setToken } from "../../app/utils/token";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../app/store/modules/user";
 
 export default function Register() {
   const {
@@ -21,6 +23,8 @@ export default function Register() {
     setError,
     formState: { errors },
   } = useForm();
+
+  const dispatch = useDispatch();
 
   const [reg, result] = useRegisterMutation();
   const navigate = useNavigate();
@@ -35,6 +39,7 @@ export default function Register() {
     }
 
     if (res?.data?.token) setToken(res?.data?.token);
+    if (res?.data?.user) dispatch(setUser(res?.data?.user));
 
     navigate(ROUTE_NAMES.main);
   };

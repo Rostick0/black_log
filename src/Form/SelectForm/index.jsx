@@ -59,11 +59,11 @@ export default function SelectForm({
         console.log(switchInput.current !== e.target);
         if (switchInput.current !== e.target) return;
 
-        setActive(true);
+        setActive(false);
       }}
-      onFocus={() => {
-        setActive(active);
-      }}
+      // onFocus={() => {
+      //   setActive(active);
+      // }}
     >
       <div className={styles.SelectForm}>
         <div

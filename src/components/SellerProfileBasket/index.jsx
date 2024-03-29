@@ -27,7 +27,7 @@ export default function SellerProfileBasket() {
         </Title>
         <Button onClick={() => setActiveModal(true)}>Add a new</Button>
       </div>
-      {data.map((item) => (
+      {data?.map((item) => (
         <SellerProfileBasketItem key={item.id} {...item} />
       ))}
       {activeModal && <ModalAddingProduct close={() => setActiveModal(false)} />}

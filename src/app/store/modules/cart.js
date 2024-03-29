@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
@@ -7,8 +8,11 @@ export const cartApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     cartsGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "cart",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -24,6 +28,9 @@ export const cartApi = createApi({
       query: ({ body }) => ({
         url: "cart/buy",
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Cart", id: "LIST" }],
@@ -31,7 +38,4 @@ export const cartApi = createApi({
   }),
 });
 
-export const {
-  useCartsGetQuery,
-  useCartCreateMutation,
-} = cartApi;
+export const { useCartsGetQuery, useCartCreateMutation } = cartApi;

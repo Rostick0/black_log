@@ -1,6 +1,6 @@
+import { useTransactionsGetQuery } from "../../app/store/modules/transactions";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
-import _ from "lodash";
 
 export default function ProfileTransactions() {
   const statuses = [
@@ -18,12 +18,7 @@ export default function ProfileTransactions() {
     },
   ];
 
-  const data = Array.from(Array(8).keys()).map((item) => ({
-    id: 12366,
-    date: "12.03.2024",
-    status: statuses[_.random(2, false)].name,
-    price: "12$",
-  }));
+  const { data } = useTransactionsGetQuery();
 
   const setColorStatus = (status) => {
     return " " + statuses.find((item) => item.name === status)?.class;
@@ -42,12 +37,12 @@ export default function ProfileTransactions() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr>
+          {data?.data?.map((item) => (
+            <tr key={item.id}>
               <td>{item.id}</td>
-              <td>{item.date}</td>
+              <td>{new Date(item.created_at)?.toLocaleDateString()}</td>
               <td className={setColorStatus(item.status)}>{item.status}</td>
-              <td>{item.price}</td>
+              <td>{item.amount}$</td>
             </tr>
           ))}
         </tbody>

@@ -10,6 +10,8 @@ import { setErrorMessage, errorsMessage } from "../../app/utils/error";
 import { useLoginMutation } from "../../app/store/modules/auth";
 import { setToken } from "../../app/utils/token";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../app/store/modules/user";
 
 export default function Login() {
   const {
@@ -24,6 +26,8 @@ export default function Login() {
     },
   });
 
+  const dispatch = useDispatch();
+
   const [login, result] = useLoginMutation();
   const navigate = useNavigate();
 
@@ -37,10 +41,10 @@ export default function Login() {
 
     if (res?.data?.token) setToken(res?.data?.token);
 
+    if (res?.data?.user) dispatch(setUser(res?.data?.user));
+
     navigate(ROUTE_NAMES.main);
   };
-
-  console.log(errors);
 
   return (
     <div className={styles.Login + " auth"}>
@@ -56,7 +60,13 @@ export default function Login() {
             name="login"
             error={setErrorMessage({ formField: errors?.login })}
             register={register}
-            rules={{ required: true, maxLenght: 255 }}
+            rules={{
+              required: true,
+              maxLenght: {
+                value: 255,
+                message: errorsMessage["minLenght"](255),
+              },
+            }}
           />
 
           <InputForm
@@ -70,7 +80,10 @@ export default function Login() {
                 value: 8,
                 message: errorsMessage["minLenght"](8),
               },
-              maxLenght: 255,
+              maxLenght: {
+                value: 255,
+                message: errorsMessage["minLenght"](255),
+              },
             }}
           />
           <Input placeholder="Repeat the password" />

@@ -15,7 +15,7 @@ export default function Market() {
     state: "IN",
     cc: "N/A",
     seller: "xsirien",
-    price: "10$",
+    amount: "10$",
   }));
 
   const selectOptions = [
@@ -124,7 +124,7 @@ export default function Market() {
                   <td className="table-td">{item.state}</td>
                   <td className="table-td">{item.cc}</td>
                   <td className="table-td">{item.seller}</td>
-                  <td className="table-td color-ui fw-600">{item.price}</td>
+                  <td className="table-td color-ui fw-600">{item.amount}$</td>
                   <td className="table-td table-item-action">
                     <Button className="table-btn">
                       <svg

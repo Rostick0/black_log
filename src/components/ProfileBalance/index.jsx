@@ -69,7 +69,7 @@ export default function ProfileBalance() {
     <div className={styles.ProfileBalance}>
       <Title variant="small">Your balance</Title>
       <div className={styles.ProfileBalance__list}>
-        {data.map((item) => (
+        {data?.map((item) => (
           <ProfileBalanceItem key={item.name} {...item} />
         ))}
       </div>

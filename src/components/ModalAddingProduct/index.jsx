@@ -21,7 +21,7 @@ export default function ModalAddingProduct({ close }) {
         </Title>
         {data?.length && (
           <div className={styles.ModalAddingProduct__files}>
-            {data.map((item) => (
+            {data?.map((item) => (
               <div
                 className={styles.ModalAddingProduct__files_item}
                 key={item.id}

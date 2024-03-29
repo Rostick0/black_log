@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const paymentApi = createApi({
   reducerPath: "paymentApi",
@@ -7,8 +8,11 @@ export const paymentApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     paymentsGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "payment",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -24,6 +28,9 @@ export const paymentApi = createApi({
       query: ({ body, currency }) => ({
         url: `payment/${currency}`,
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Payment", id: "LIST" }],
@@ -32,6 +39,9 @@ export const paymentApi = createApi({
       query: ({ body, currency }) => ({
         url: `payment/exchange/${currency}`,
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       // invalidatesTags: [{ type: "Payment", id: "LIST" }],

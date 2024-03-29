@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const ticketApi = createApi({
   reducerPath: "ticketApi",
@@ -7,8 +8,11 @@ export const ticketApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     ticketsGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "tickets",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -21,8 +25,11 @@ export const ticketApi = createApi({
       },
     }),
     ticketsHotGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "tickets/hot",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -37,7 +44,9 @@ export const ticketApi = createApi({
     ticketGet: build.query({
       query: (id) => ({
         url: `tickets/${id}`,
-        // params,
+        headers: {
+          ...getTokenHeader(),
+        },
       }),
       providesTags: (result, error, id) => [{ type: "Tickets", id }],
     }),
@@ -45,6 +54,9 @@ export const ticketApi = createApi({
       query: ({ body }) => ({
         url: "tickets",
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Tickets", id: "LIST" }],
@@ -53,6 +65,9 @@ export const ticketApi = createApi({
       query: ({ body, id }) => ({
         url: `tickets/${id}/close`,
         method: "PATCH",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Tickets", id: "LIST" }],

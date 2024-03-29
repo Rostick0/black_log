@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const offerApi = createApi({
   reducerPath: "offerApi",
@@ -7,8 +8,11 @@ export const offerApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND }),
   endpoints: (build) => ({
     offersGet: build.query({
-      query: (params) => ({
+      query: (params = {}) => ({
         url: "offers",
+        headers: {
+          ...getTokenHeader(),
+        },
         params,
       }),
       providesTags: (result) => {
@@ -24,6 +28,9 @@ export const offerApi = createApi({
       query: ({ body }) => ({
         url: "offers",
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Offers", id: "LIST" }],
@@ -32,6 +39,9 @@ export const offerApi = createApi({
       query: ({ body, id }) => ({
         url: `offers/${id}`,
         method: "PUT",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Offers", id: "LIST" }],
@@ -40,12 +50,20 @@ export const offerApi = createApi({
       query: ({ body, id }) => ({
         url: `offers/${id}`,
         method: "DELETE",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "Offers", id: "LIST" }],
     }),
     offersGetHot: build.query({
-      query: () => "offers/hot",
+      query: () => ({
+        url: "offers/hot",
+        headers: {
+          ...getTokenHeader(),
+        },
+      }),
       providesTags: (result) => {
         return result?.result?.length
           ? [

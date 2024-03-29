@@ -11,6 +11,7 @@ import { ticketChatApi } from "./modules/ticketChat";
 import { transactionsApi } from "./modules/transactions";
 import { userApi } from "./modules/userSettings";
 import { withdrawalsApi } from "./modules/withdrawal";
+import userReducer from "./modules/user";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     [transactionsApi.reducerPath]: transactionsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [withdrawalsApi.reducerPath]: withdrawalsApi.reducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddlware) =>
     getDefaultMiddlware().concat(
@@ -40,6 +42,6 @@ export const store = configureStore({
       ticketChatApi.middleware,
       transactionsApi.middleware,
       userApi.middleware,
-      withdrawalsApi.middleware,
+      withdrawalsApi.middleware
     ),
 });

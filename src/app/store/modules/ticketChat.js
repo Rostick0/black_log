@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_BACKEND } from "../utils";
+import { getTokenHeader } from "../../utils/token";
 
 export const ticketChatApi = createApi({
   reducerPath: "ticketChatApi",
@@ -10,6 +11,9 @@ export const ticketChatApi = createApi({
       query: ({ body, id }) => ({
         url: `tickets/${id}/send-message`,
         method: "POST",
+        headers: {
+          ...getTokenHeader(),
+        },
         body,
       }),
       invalidatesTags: [{ type: "TicketChat" }],
