@@ -4,19 +4,14 @@ import styles from "./style.module.scss";
 import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
 import TicketActionSendler from "../TicketActionSendler";
+import { useTicketsGetQuery } from "../../app/store/modules/ticket";
+import useFilter from "../../app/hook/useFilter";
+import { debounce } from "lodash";
 
 export default function UserTickets() {
-  const data = Array.from(Array(3).keys()).map((item) => ({
-    id: item,
-    date: "12.03.2024",
-    user: "login",
-    subject: "Low-quality logs",
-    seller: "login",
-    amount: "10$",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    status: "In processing",
-  }));
+  const { filters, updateCurrentFilterValue } = useFilter();
+
+  const { data } = useTicketsGetQuery(filters);
 
   return (
     <div className={styles.UserTickets}>
@@ -60,14 +55,20 @@ export default function UserTickets() {
         </div>
       </div>
       <div className={styles.UserTickets__list}>
-        {data?.map((item) => (
-          <Ticket
-            key={item.id}
-            {...item}
-            info={item.comment}
-            action={<TicketActionSendler status={item.status} />}
-          />
-        ))}
+        {data?.data?.length &&
+          data?.data?.map((item) => (
+            <Ticket
+              key={item.id}
+              {...item}
+              info={item.subject}
+              action={
+                <TicketActionSendler
+                  id={item.id}
+                  status={item.is_opened ? "In processing" : "Done"}
+                />
+              }
+            />
+          ))}
       </div>
       <Pagination />
     </div>

@@ -1,14 +1,9 @@
+import { useUpdatesGetQuery } from "../../app/store/modules/updates";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function News() {
-  const data = Array.from(Array(3).keys()).map((item) => ({
-    id: item,
-    title: "Updates",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    created_ate: "24.03.2024",
-  }));
+  const { data } = useUpdatesGetQuery();
 
   return (
     <div className={styles.News}>
@@ -21,12 +16,10 @@ export default function News() {
                 <div className={styles.News_item__top}>
                   <div className={styles.News_item__title}>{item.title}</div>
                   <div className={styles.News_item__date}>
-                    {item.created_ate}
+                    {new Date(item.created_at)?.toLocaleDateString()}
                   </div>
                 </div>
-                <div className={styles.News_item__content}>
-                  {item.description}
-                </div>
+                <div className={styles.News_item__content}>{item.content}</div>
               </div>
             </li>
           ))}

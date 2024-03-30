@@ -1,18 +1,16 @@
+import { useCartsGetQuery } from "../../app/store/modules/cart";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function ProfileProducts() {
-  const data = Array.from(Array(5).keys()).map((item) => ({
-    id: item,
-    link: "westernunion.com",
-    type: "verified",
-    country: "US",
-    state: "IN",
-    cc: "N/A",
-    seller: "xsirien",
-    price: "10$",
-  }));
+  const cart = JSON.parse(localStorage.getItem("cart") ?? []);
+
+  console.log(cart);
+
+  const { data } = useCartsGetQuery({
+    "products": cart?.join(','),
+  });
 
   return (
     <div className={styles.ProfileBasket}>
@@ -50,9 +48,8 @@ export default function ProfileProducts() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-
                       <path
-                          d="M8.29512 9.99998V13.5417M11.7049 9.99998V13.5417M12.0833 4.99996C12.0833 4.53972 11.7102 4.16663 11.25 4.16663H8.75C8.28976 4.16663 7.91667 4.53972 7.91667 4.99996M4.88679 6.45832L5.58716 14.7927C5.69598 16.0877 6.77882 17.0833 8.07838 17.0833H11.9225C13.222 17.0833 14.3049 16.0877 14.4137 14.7927L15.1141 6.45832M3.75 6.33164H16.25"
+                        d="M8.29512 9.99998V13.5417M11.7049 9.99998V13.5417M12.0833 4.99996C12.0833 4.53972 11.7102 4.16663 11.25 4.16663H8.75C8.28976 4.16663 7.91667 4.53972 7.91667 4.99996M4.88679 6.45832L5.58716 14.7927C5.69598 16.0877 6.77882 17.0833 8.07838 17.0833H11.9225C13.222 17.0833 14.3049 16.0877 14.4137 14.7927L15.1141 6.45832M3.75 6.33164H16.25"
                         stroke="var(--tenth-color)"
                         strokeWidth="1.5"
                         strokeLinecap="round"

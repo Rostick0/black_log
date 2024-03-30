@@ -9,7 +9,7 @@ export const userApi = createApi({
   endpoints: (build) => ({
     userGet: build.query({
       query: (params = {}) => ({
-        url: "user/settings",
+        url: "user",
         headers: {
           ...getTokenHeader(),
         },

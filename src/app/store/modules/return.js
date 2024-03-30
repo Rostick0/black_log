@@ -38,7 +38,7 @@ export const returnApi = createApi({
     returnRefund: build.mutation({
       query: ({ body, id }) => ({
         url: `returns/${id}`,
-        method: "PATCH",
+        method: "PUT",
         headers: {
           ...getTokenHeader(),
         },
@@ -49,7 +49,7 @@ export const returnApi = createApi({
     returnClose: build.mutation({
       query: ({ body, id }) => ({
         url: `returns/${id}/close`,
-        method: "PATCH",
+        method: "PUT",
         headers: {
           ...getTokenHeader(),
         },

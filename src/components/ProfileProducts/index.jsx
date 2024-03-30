@@ -1,18 +1,10 @@
+import { usePurchasesGetQuery } from "../../app/store/modules/purchases.js";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function ProfileProducts() {
-  const data = Array.from(Array(16).keys()).map((item) => ({
-    id: item,
-    link: "westernunion.com",
-    type: "verified",
-    country: "US",
-    state: "IN",
-    cc: "N/A",
-    seller: "xsirien",
-    price: "10$",
-  }));
+  const { data } = usePurchasesGetQuery();
 
   return (
     <div className={styles.ProfileProducts}>
@@ -21,10 +13,7 @@ export default function ProfileProducts() {
         <thead>
           <tr className="table-tr">
             <th className="table-th">Links</th>
-            <th className="table-th">Type</th>
-            <th className="table-th">Country </th>
-            <th className="table-th">State</th>
-            <th className="table-th">CC</th>
+            <th className="table-th">Status</th>
             <th className="table-th">Seller</th>
             <th className="table-th">Price</th>
             <th className="table-th table-item-action"></th>
@@ -35,12 +24,9 @@ export default function ProfileProducts() {
             data?.map((item) => (
               <tr className="table-tr" key={item.id}>
                 <td className="table-td">{item.link}</td>
-                <td className="table-td">{item.type}</td>
-                <td className="table-td">{item.country}</td>
-                <td className="table-td">{item.state}</td>
-                <td className="table-td">{item.cc}</td>
+                <td className="table-td">{item.status}</td>
                 <td className="table-td">{item.seller}</td>
-                <td className="table-td color-ui fw-600">{item.price}</td>
+                <td className="table-td color-ui fw-600">{item.amount}$</td>
                 <td className="table-td table-item-action">
                   <Button className="table-btn">
                     <svg

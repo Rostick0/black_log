@@ -5,27 +5,15 @@ import InputForm from "../../Form/InputForm";
 import SelectForm from "../../Form/SelectForm";
 import styles from "./style.module.scss";
 import { useForm } from "react-hook-form";
+import { useOffersGetQuery } from "../../app/store/modules/offer";
+import useFilter from "../../app/hook/useFilter";
+import { debounce } from "lodash";
 
 export default function Market() {
-  const data = Array.from(Array(13).keys()).map((item) => ({
-    id: item,
-    link: "westernunion.com",
-    type: "verified",
-    country: "US",
-    state: "IN",
-    cc: "N/A",
-    seller: "xsirien",
-    amount: "10$",
-  }));
+  const { filters, updateCurrentFilterValue } = useFilter();
+  const { data } = useOffersGetQuery(filters);
 
-  const selectOptions = [
-    {
-      name: "All",
-      value: "all",
-    },
-  ];
-
-  const { handleSubmit, getValues, register, setValue } = useForm();
+  const { register } = useForm();
 
   const onSubmit = (values) => {
     console.log(values);
@@ -56,75 +44,54 @@ export default function Market() {
           </svg>
         </Button>
       </div>
-      <form className="filter-inputs" onSubmit={handleSubmit(onSubmit)}>
-        <SelectForm
-          name="link"
-          label="Links"
-          items={selectOptions}
+      <div className="filter-inputs">
+        <InputForm
+          name="search"
+          label="Search"
           register={register}
-          setValueHookForm={setValue}
+          onChange={debounce(
+            (e) => updateCurrentFilterValue("search", e.target.value),
+            500
+          )}
         />
-        <SelectForm
-          name="type"
-          label="Type"
-          items={selectOptions}
+        <InputForm
+          name="seller_name"
+          label="Seller name"
           register={register}
-          setValueHookForm={setValue}
+          onChange={debounce(
+            (e) => updateCurrentFilterValue("seller_name", e.target.value),
+            500
+          )}
         />
-        <SelectForm
+        <InputForm
           name="country"
           label="Country"
-          items={selectOptions}
           register={register}
-          setValueHookForm={setValue}
+          onChange={debounce(
+            (e) => updateCurrentFilterValue("country", e.target.value),
+            500
+          )}
         />
-        <SelectForm
-          name="state"
-          label="State"
-          items={selectOptions}
-          register={register}
-          setValueHookForm={setValue}
-        />
-        <SelectForm
-          name="cc"
-          label="CC"
-          items={selectOptions}
-          register={register}
-          setValueHookForm={setValue}
-        />
-        <SelectForm
-          name="seller"
-          label="Seller"
-          items={selectOptions}
-          register={register}
-          setValueHookForm={setValue}
-        />
-      </form>
+      </div>
       <div className={styles.Market__content}>
         <table className={styles.Market__table + " table"}>
           <thead>
             <tr className="table-tr">
               <th className="table-th">Links</th>
-              <th className="table-th">Type</th>
               <th className="table-th">Country </th>
-              <th className="table-th">State</th>
-              <th className="table-th">CC</th>
               <th className="table-th">Seller</th>
               <th className="table-th">Price</th>
               <th className="table-th table-item-action"></th>
             </tr>
           </thead>
           <tbody>
-            {data?.length &&
-              data?.map((item) => (
+            {data?.data?.length &&
+              data?.data?.map((item) => (
                 <tr className="table-tr" key={item.id}>
-                  <td className="table-td">{item.link}</td>
-                  <td className="table-td">{item.type}</td>
-                  <td className="table-td">{item.country}</td>
-                  <td className="table-td">{item.state}</td>
-                  <td className="table-td">{item.cc}</td>
-                  <td className="table-td">{item.seller}</td>
-                  <td className="table-td color-ui fw-600">{item.amount}$</td>
+                  <td className="table-td">{item?.archive_link}</td>
+                  <td className="table-td">{item?.country}</td>
+                  <td className="table-td">{item?.seller?.name} </td>
+                  <td className="table-td color-ui fw-600">{item?.amount}$</td>
                   <td className="table-td table-item-action">
                     <Button className="table-btn">
                       <svg

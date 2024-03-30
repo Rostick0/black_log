@@ -62,14 +62,18 @@ export const ticketApi = createApi({
       invalidatesTags: [{ type: "Tickets", id: "LIST" }],
     }),
     ticketUpdate: build.mutation({
-      query: ({ body, id }) => ({
-        url: `tickets/${id}/close`,
-        method: "PATCH",
-        headers: {
-          ...getTokenHeader(),
-        },
-        body,
-      }),
+      query: ({ body = {}, id }) => {
+        console.log(id);
+        console.log(body);
+        return ({
+          url: `tickets/${id}/close`,
+          method: "POST",
+          headers: {
+            ...getTokenHeader(),
+          },
+          body,
+        })
+      },
       invalidatesTags: [{ type: "Tickets", id: "LIST" }],
     }),
   }),
