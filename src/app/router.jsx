@@ -28,6 +28,7 @@ const SellerProfileStatistics = lazy(() =>
   import("../pages/Seller/ProfileStatistics")
 );
 
+const SupportHome = lazy(() => import("../pages/Support/Home"));
 const SupportTickets = lazy(() => import("../pages/Support/Tickets"));
 const SupportRequests = lazy(() => import("../pages/Support/Requests"));
 
@@ -53,6 +54,7 @@ export const ROUTE_NAMES = {
     },
   },
   support: {
+    home: "/support/home",
     tickets: "/support/tickets",
     requests: "/support/requests",
     profile: {},
@@ -104,6 +106,10 @@ const AppRouter = ({ loggedIn }) => {
               element={<SellerProfileStatistics />}
             ></Route>
 
+            <Route
+              path={ROUTE_NAMES.support.home}
+              element={<SupportHome />}
+            ></Route>
             <Route
               path={ROUTE_NAMES.support.tickets}
               element={<SupportTickets />}
