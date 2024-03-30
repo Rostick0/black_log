@@ -99,7 +99,7 @@ export default function ProfileSettings() {
         </form>
         <div className="">
           <Title variant="small">Other settings</Title>
-          <SwitchTheme />
+          <SwitchTheme user={user} userUpdate={userUpdate} />
         </div>
       </div>
     </LayoutProfile>
