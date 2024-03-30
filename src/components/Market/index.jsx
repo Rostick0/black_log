@@ -116,7 +116,12 @@ export default function Market() {
           </tbody>
         </table>
       </div>
-      <Pagination />
+      <Pagination
+        links={data?.links}
+        currentPage={data?.current_page}
+        lastPage={data?.last_page}
+        onChange={(number) => updateCurrentFilterValue("page", number)}
+      />
     </div>
   );
 }

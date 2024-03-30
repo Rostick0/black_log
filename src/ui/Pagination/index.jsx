@@ -3,13 +3,30 @@ import { setClassName } from "../../app/utils/class";
 import Button from "../Button";
 import styles from "./style.module.scss";
 
-export default function Pagination({ className, totalPages }) {
+export default function Pagination({
+  className,
+  onChange,
+  links,
+  currentPage,
+  lastPage,
+}) {
   const styleClassName = setClassName(className);
-  // const [active, setActive] = useState(1);
+
+  const decrement = () => {
+    if (1 >= currentPage) return;
+
+    onChange(currentPage - 1);
+  };
+
+  const increment = () => {
+    if (lastPage <= currentPage) return;
+
+    onChange(currentPage + 1);
+  };
 
   return (
     <div className={styles.Pagination + styleClassName}>
-      <Button className={styles.Pagination__arrow}>
+      <Button className={styles.Pagination__arrow} onClick={decrement}>
         <svg
           width="20"
           height="20"
@@ -27,10 +44,20 @@ export default function Pagination({ className, totalPages }) {
         </svg>
       </Button>
       <div className={styles.Pagination__list}>
-        <Button className={styles.Pagination__item} variant="bright_blue" disabled>1</Button>
-        <Button className={styles.Pagination__item} variant="outlined">2</Button>
+        {links?.length &&
+          links?.slice(1, -1).map((item) => (
+            <Button
+              className={styles.Pagination__item}
+              key={item.label}
+              variant={item?.active ? "bright_blue" : "outlined"}
+              disabled={item?.active}
+              onClick={() => onChange(item.label)}
+            >
+              {item.label}
+            </Button>
+          ))}
       </div>
-      <Button className={styles.Pagination__arrow}>
+      <Button className={styles.Pagination__arrow} onClick={increment}>
         <svg
           width="20"
           height="20"
