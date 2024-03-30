@@ -28,7 +28,7 @@ function App() {
   return (
     <div className={"wrapper" + the}>
       <BrowserRouter>
-        <AppRouter></AppRouter>
+        <AppRouter loggedIn={() => localStorage.getItem("auth")}></AppRouter>
       </BrowserRouter>
     </div>
   );

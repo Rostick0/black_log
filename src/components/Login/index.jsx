@@ -12,6 +12,7 @@ import { setToken } from "../../app/utils/token";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../app/store/modules/user";
+import InputPasswordForm from "../../Form/InputPasswordForm";
 
 export default function Login() {
   const {
@@ -69,7 +70,7 @@ export default function Login() {
             }}
           />
 
-          <InputForm
+          <InputPasswordForm
             placeholder="Password"
             name="password"
             error={setErrorMessage({ formField: errors?.password })}
@@ -86,7 +87,6 @@ export default function Login() {
               },
             }}
           />
-          <Input placeholder="Repeat the password" />
         </div>
         <Button className="auth-btn">Login</Button>
       </form>

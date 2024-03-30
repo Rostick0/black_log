@@ -55,7 +55,7 @@ export default function UserTickets() {
         </div>
       </div>
       <div className={styles.UserTickets__list}>
-        {data?.data?.length &&
+        {data?.data?.length > 0 &&
           data?.data?.map((item) => (
             <Ticket
               key={item.id}

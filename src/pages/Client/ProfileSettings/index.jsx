@@ -26,12 +26,11 @@ export default function ProfileSettings() {
     watch,
     formState: { errors },
   } = useForm({});
-  // const { data } = useUserGetQuery();
   const [userUpdate] = useUserUpdateMutation();
 
   const user = useSelector((state) => state.user.value);
   const onSubmit = submit(userUpdate, setError);
-  console.log(errors);
+
   return (
     <LayoutProfile>
       <div className={styles.ProfileSettings}>

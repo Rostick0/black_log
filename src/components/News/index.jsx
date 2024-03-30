@@ -9,7 +9,7 @@ export default function News() {
     <div className={styles.News}>
       <Title className="text-right">News</Title>
       <ul className={styles.News_list}>
-        {data?.length &&
+        {data?.length > 0 &&
           data?.map((item) => (
             <li className={styles.News_item} key={item.id}>
               <div className={styles.News_item__link}>

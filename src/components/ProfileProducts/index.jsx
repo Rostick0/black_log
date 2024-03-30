@@ -20,7 +20,7 @@ export default function ProfileProducts() {
           </tr>
         </thead>
         <tbody>
-          {data?.length &&
+          {data?.length > 0 &&
             data?.map((item) => (
               <tr className="table-tr" key={item.id}>
                 <td className="table-td">{item.link}</td>

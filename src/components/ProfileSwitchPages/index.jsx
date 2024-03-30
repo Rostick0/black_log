@@ -30,8 +30,6 @@ export default function ProfileSwitchPages() {
   const location = useLocation();
 
   const setActiveRoute = (route) => {
-    // console.log(location.pathname);
-    // console.log(route === location.pathname);
     if (route !== location.pathname) return "";
 
     return setClassName(styles.active);

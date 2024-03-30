@@ -59,58 +59,66 @@ export const ROUTE_NAMES = {
   },
 };
 
-const AppRouter = () => {
+const AppRouter = ({ loggedIn }) => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route path={ROUTE_NAMES.main} element={<Home />}></Route>
-        <Route path={ROUTE_NAMES.login} element={<Login />}></Route>
-        <Route path={ROUTE_NAMES.register} element={<Register />}></Route>
-        <Route path={ROUTE_NAMES.market} element={<Market />}></Route>
-        <Route path={ROUTE_NAMES.requests} element={<Requests />}></Route>
+        {loggedIn ? (
+          <>
+            <Route path={ROUTE_NAMES.main} element={<Home />}></Route>
 
-        <Route
-          path={ROUTE_NAMES.client.tickets}
-          element={<ClientTickets />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.client.profile.balance}
-          element={<ClientProfileBalance />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.client.profile.basket}
-          element={<ClientProfileBasket />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.client.profile.products}
-          element={<ClientProfileProducts />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.client.profile.settings}
-          element={<ClientProfileSettings />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.client.profile.transactions}
-          element={<ClientProfileTransactions />}
-        ></Route>
+            <Route path={ROUTE_NAMES.market} element={<Market />}></Route>
+            <Route path={ROUTE_NAMES.requests} element={<Requests />}></Route>
 
-        <Route
-          path={ROUTE_NAMES.seller.profile.basket}
-          element={<SellerProfileBasket />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.seller.profile.statistics}
-          element={<SellerProfileStatistics />}
-        ></Route>
+            <Route
+              path={ROUTE_NAMES.client.tickets}
+              element={<ClientTickets />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.client.profile.balance}
+              element={<ClientProfileBalance />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.client.profile.basket}
+              element={<ClientProfileBasket />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.client.profile.products}
+              element={<ClientProfileProducts />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.client.profile.settings}
+              element={<ClientProfileSettings />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.client.profile.transactions}
+              element={<ClientProfileTransactions />}
+            ></Route>
 
-        <Route
-          path={ROUTE_NAMES.support.tickets}
-          element={<SupportTickets />}
-        ></Route>
-        <Route
-          path={ROUTE_NAMES.support.requests}
-          element={<SupportRequests />}
-        ></Route>
+            <Route
+              path={ROUTE_NAMES.seller.profile.basket}
+              element={<SellerProfileBasket />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.seller.profile.statistics}
+              element={<SellerProfileStatistics />}
+            ></Route>
+
+            <Route
+              path={ROUTE_NAMES.support.tickets}
+              element={<SupportTickets />}
+            ></Route>
+            <Route
+              path={ROUTE_NAMES.support.requests}
+              element={<SupportRequests />}
+            ></Route>
+          </>
+        ) : (
+          <>
+            <Route path={ROUTE_NAMES.login} element={<Login />}></Route>
+            <Route path={ROUTE_NAMES.register} element={<Register />}></Route>
+          </>
+        )}
       </Routes>
     </Suspense>
   );

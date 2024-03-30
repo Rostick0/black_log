@@ -6,7 +6,6 @@ export default function Login() {
   return (
     <LayoutAuth>
       <LoginForm />
-      {/* <div className={styles.Login}></div> */}
     </LayoutAuth>
   );
 }

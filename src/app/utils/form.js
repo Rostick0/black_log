@@ -11,7 +11,7 @@ export const submit = (func, setError) => {
         return;
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };

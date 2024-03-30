@@ -19,7 +19,7 @@ export default function ModalAddingProduct({ close }) {
         <Title className="text-center" variant="small">
           Adding a new product
         </Title>
-        {data?.length && (
+        {data?.length > 0 && (
           <div className={styles.ModalAddingProduct__files}>
             {data?.map((item) => (
               <div
