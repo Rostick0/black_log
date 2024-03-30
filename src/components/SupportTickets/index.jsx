@@ -5,19 +5,23 @@ import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
 import TicketActionRecipient from "../TicketActionRecipient";
 import SupportTicketInfo from "../SupportTicketInfo";
+import { useTicketsGetQuery } from "../../app/store/modules/ticket";
+import useFilter from "../../app/hook/useFilter";
 
 export default function SupportTickets() {
-  const data = Array.from(Array(3).keys()).map((item) => ({
-    id: item,
-    date: "12.03.2024",
-    user: "login",
-    subject: "Low-quality logs",
-    seller: "login",
-    amount: "10$",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    status: "In processing",
-  }));
+  // const data = Array.from(Array(3).keys()).map((item) => ({
+  //   id: item,
+  //   date: "12.03.2024",
+  //   user: "login",
+  //   subject: "Low-quality logs",
+  //   seller: "login",
+  //   amount: "10$",
+  //   comment:
+  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  //   status: "In processing",
+  // }));
+  const { filters, updateCurrentFilterValue } = useFilter();
+  const { data } = useTicketsGetQuery(filters);
 
   return (
     <div className={styles.SupportTickets}>
@@ -61,16 +65,30 @@ export default function SupportTickets() {
         </div>
       </div>
       <div className={styles.SupportTickets__list}>
-        {data?.map((item) => (
-          <Ticket
-            key={item.id}
-            {...item}
-            info={<SupportTicketInfo {...item} />}
-            action={<TicketActionRecipient status={item.status} />}
-          />
-        ))}
+        {data?.data?.length > 0 &&
+          data?.data?.map((item) => (
+            <Ticket
+              key={item.id}
+              {...item}
+              info={
+                <SupportTicketInfo
+                  {...item}
+                  seller={item.seller?.name}
+                  user={item.user?.name}
+                />
+              }
+              action={
+                <TicketActionRecipient id={item.id} status={item.is_opened} />
+              }
+            />
+          ))}
       </div>
-      <Pagination />
+      <Pagination
+        links={data?.links}
+        currentPage={data?.current_page}
+        lastPage={data?.last_page}
+        onChange={(number) => updateCurrentFilterValue("page", number)}
+      />
     </div>
   );
 }

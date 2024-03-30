@@ -26,12 +26,14 @@ export default function SelectForm({
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
+    console.log(defaultValue)
     if (value && defaultValue) return;
 
     setValue(defaultValue);
   }, [defaultValue]);
 
   useEffect(() => {
+    console.log(value);
     if (typeof setValueHookForm !== "function") return;
 
     setValueHookForm(name, value?.value);
@@ -45,27 +47,25 @@ export default function SelectForm({
     ? " " + styleClass
     : " " + styles["SelectForm_style_white"];
 
-  const switchInput = useRef();
+  const controlRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (controlRef.current && !controlRef.current.contains(event.target)) {
+        setActive(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleClick, true);
+    };
+  }, [controlRef]);
 
   return (
-    <Control
-      className={className}
-      label={label}
-      error={error}
-      isDiv
-      tabIndex={1}
-      onBlur={(e) => {
-        // e.stopPropagation();
-        console.log(switchInput.current !== e.target);
-        if (switchInput.current !== e.target) return;
-
-        setActive(false);
-      }}
-      // onFocus={() => {
-      //   setActive(active);
-      // }}
-    >
-      <div className={styles.SelectForm}>
+    <Control className={className} label={label} error={error} isDiv>
+      <div className={styles.SelectForm} ref={controlRef}>
         <div
           className={styles.SelectForm__switch + styleSelectClassName}
           onClick={() => setActive(!active)}
@@ -78,12 +78,6 @@ export default function SelectForm({
               styles.SelectForm__input +
               styleInputClassName
             }
-            // onFocus={e => e.preventDefault()}
-            // onMouseDown={(e) => e.preventDefault()}
-            onBlur={(e) => {
-              console.log(e);
-            }}
-            ref={switchInput}
             placeholder={placeholder}
             defaultValue={value?.value}
             value={value?.name}
@@ -109,10 +103,7 @@ export default function SelectForm({
           )}
         </div>
         {active && (
-          <ul
-            className={styles.SelectForm__list}
-            // onFocus={(e) => console.log(e)}
-          >
+          <ul className={styles.SelectForm__list}>
             {items?.length ? (
               <>
                 {items?.map((item) => (

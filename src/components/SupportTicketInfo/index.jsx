@@ -30,10 +30,12 @@ export default function SupportTicketInfo({
         </div>
         <div className={styles.SupportTicketInfo__item_value}>{amount}</div>
       </div>
-      <div className={styles.SupportTicketInfo__item}>
-        <div className={styles.SupportTicketInfo__item_name}>Comment</div>
-        <div className={styles.SupportTicketInfo__item_value}>{comment}</div>
-      </div>
+      {comment && (
+        <div className={styles.SupportTicketInfo__item}>
+          <div className={styles.SupportTicketInfo__item_name}>Comment</div>
+          <div className={styles.SupportTicketInfo__item_value}>{comment}</div>
+        </div>
+      )}
     </div>
   );
 }

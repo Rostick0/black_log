@@ -3,25 +3,25 @@ import Button from "../../ui/Button";
 import styles from "./style.module.scss";
 import SelectForm from "../../Form/SelectForm";
 import { useEffect } from "react";
+import { useTicketUpdateMutation } from "../../app/store/modules/ticket";
 
 export default function TicketActionRecipient({ id, status }) {
   const { handleSubmit, register, setValue } = useForm();
-
-  useEffect(() => {
-    setValue('status', status);
-}, [status]);
+  const [ticketClose] = useTicketUpdateMutation();
 
   const onSubmit = async (values) => {
-    console.log(values);
+    if (values.status !== 0) return;
+
+    ticketClose({ id });
   };
 
   const statusItems = [
     {
-      value: "work",
+      value: 1,
       name: "At work",
     },
     {
-      value: "close",
+      value: 0,
       name: "Closed",
     },
   ];
@@ -36,6 +36,7 @@ export default function TicketActionRecipient({ id, status }) {
         <SelectForm
           label="Status"
           name="status"
+          defaultValue={statusItems.find((elem) => elem.value == status)}
           register={register}
           items={statusItems}
           setValueHookForm={setValue}
