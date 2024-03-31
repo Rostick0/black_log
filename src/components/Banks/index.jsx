@@ -54,10 +54,7 @@ export default function Banks() {
         <thead>
           <tr className="table-tr">
             <th className="table-th">Bank Name</th>
-            <th className="table-th">Total Cash</th>
             <th className="table-th">Balance</th>
-            <th className="table-th">AN\RN</th>
-            <th className="table-th">Checked</th>
             <th className="table-th">Seller</th>
             <th className="table-th">Price</th>
             <th className="table-th table-item-action"></th>
@@ -68,10 +65,9 @@ export default function Banks() {
             data?.data?.map((item) => (
               <tr className="table-tr" key={item.id}>
                 <td className="table-td">{item.bank_link}</td>
-                <td className="table-td">{item.amount}</td>
                 <td className="table-td">{item.balance}</td>
                 <td className="table-td">{item?.seller_id?.name}</td>
-                <td className="table-td color-ui fw-600">{item.price ?? 0}$</td>
+                <td className="table-td color-ui fw-600">{item.amount ?? 0}$</td>
                 <td className="table-td table-item-action">
                   <button className="style_btn__Y5CHA table-btn style_red__xQjo0">
                     <svg

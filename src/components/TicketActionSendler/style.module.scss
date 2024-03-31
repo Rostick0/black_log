@@ -1,6 +1,12 @@
 .TicketActionSendler {
+  &__link {
+    display: flex;
+    width: 100%;
+  }
+
   &__btn {
     font-size: 16px;
+    flex-grow: 1;
   }
 
   &__btns {

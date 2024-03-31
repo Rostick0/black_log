@@ -4,12 +4,12 @@ import AppRouter from "./app/router";
 import "./app/assets/styles/index.scss";
 import { useTheme } from "./app/context/ThemeContext";
 import { useUserGetQuery } from "./app/store/modules/userSettings";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "./app/utils/token";
 import { setUser } from "./app/store/modules/user";
 
 function App() {
-  // const user =
+  const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
   const { theme } = useTheme();
@@ -25,10 +25,12 @@ function App() {
     dispatch(setUser(data));
   }, [data]);
 
+  const isAuth = useMemo(() => localStorage.getItem("auth"), [user]);
+  
   return (
     <div className={"wrapper" + the}>
       <BrowserRouter>
-        <AppRouter loggedIn={() => localStorage.getItem("auth")}></AppRouter>
+        <AppRouter loggedIn={isAuth}></AppRouter>
       </BrowserRouter>
     </div>
   );

@@ -7,6 +7,23 @@ export const ticketChatApi = createApi({
   tagTypes: ["TicketChat"],
   baseQuery: fetchBaseQuery({ baseUrl: URL_BACKEND, headers: {} }),
   endpoints: (build) => ({
+    ticketMessagesGet: build.query({
+      query: ({ id, ...params } = {}) => ({
+        url: `/tickets/${id}/messages`,
+        headers: {
+          ...getTokenHeader(),
+        },
+        params,
+      }),
+      providesTags: (result) => {
+        return result?.result?.length
+          ? [
+              ...result?.result?.map(({ id }) => ({ type: "TicketChat", id })),
+              { type: "TicketChat", id: "LIST" },
+            ]
+          : [{ type: "TicketChat", id: "LIST" }];
+      },
+    }),
     ticketChatCreate: build.mutation({
       query: ({ body, id }) => ({
         url: `tickets/${id}/send-message`,
@@ -21,4 +38,5 @@ export const ticketChatApi = createApi({
   }),
 });
 
-export const { useTicketChatCreateMutation } = ticketChatApi;
+export const { useTicketMessagesGetQuery, useTicketChatCreateMutation } =
+  ticketChatApi;

@@ -4,6 +4,10 @@
 @import "./ui";
 @import "./components/";
 
+.d-flex {
+  display: flex;
+}
+
 .wrapper {
   background-color: var(--tenth-color);
   color: var(--fourth-color);

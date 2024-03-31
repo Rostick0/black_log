@@ -8,6 +8,7 @@ const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const Market = lazy(() => import("../pages/Market"));
 const Requests = lazy(() => import("../pages/Requests"));
+const TicketChat = lazy(() => import("../pages/TicketChat"));
 
 const ClientTickets = lazy(() => import("../pages/Client/Tickets"));
 const ClientProfileBalance = lazy(() =>
@@ -39,6 +40,9 @@ export const ROUTE_NAMES = {
   login: "/login",
   market: "/market",
   register: "/register",
+  ticket: {
+    chat: "/ticket",
+  },
   client: {
     tickets: "/client/tickets",
     profile: {
@@ -74,6 +78,10 @@ const AppRouter = ({ loggedIn }) => {
 
             <Route path={ROUTE_NAMES.market} element={<Market />}></Route>
             <Route path={ROUTE_NAMES.requests} element={<Requests />}></Route>
+            <Route
+              path={ROUTE_NAMES.ticket.chat + "/:id"}
+              element={<TicketChat />}
+            ></Route>
 
             <Route
               path={ROUTE_NAMES.client.tickets}
