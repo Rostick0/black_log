@@ -13,6 +13,10 @@ export default function LayoutDefault({ children }) {
       path: ROUTE_NAMES.market,
     },
     {
+      name: "Banks",
+      path: ROUTE_NAMES.banks,
+    },
+    {
       name: "Tickets",
       path: ROUTE_NAMES.client.tickets,
     },

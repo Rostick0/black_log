@@ -1,0 +1,17 @@
+.ModalWithdraw {
+  background-color: var(--tenth-color);
+  border-radius: 12px;
+  padding: 40px;
+  min-width: 55vw;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  &__btn {
+    margin-top: 20px;
+    width: 100%;
+  }
+}

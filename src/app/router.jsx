@@ -2,6 +2,7 @@ import React from "react";
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
+const Banks = lazy(() => import("../pages/Banks"));
 const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
@@ -33,6 +34,7 @@ const SupportTickets = lazy(() => import("../pages/Support/Tickets"));
 const SupportRequests = lazy(() => import("../pages/Support/Requests"));
 
 export const ROUTE_NAMES = {
+  banks: "/banks",
   main: "/",
   login: "/login",
   market: "/market",
@@ -67,6 +69,7 @@ const AppRouter = ({ loggedIn }) => {
       <Routes>
         {loggedIn ? (
           <>
+            <Route path={ROUTE_NAMES.banks} element={<Banks />}></Route>
             <Route path={ROUTE_NAMES.main} element={<Home />}></Route>
 
             <Route path={ROUTE_NAMES.market} element={<Market />}></Route>

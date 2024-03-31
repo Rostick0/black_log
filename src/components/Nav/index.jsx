@@ -13,18 +13,6 @@ export default function Nav({ routes }) {
 
   return (
     <div className={styles.Nav}>
-      <Link
-        className={styles.Nav__link + setActiveRoute(routes[0]?.path)}
-        to={routes[0]?.path}
-      >
-        {routes[0]?.name}
-      </Link>
-      <Link
-        className={styles.Nav__link + setActiveRoute(routes[1]?.path)}
-        to={routes[1]?.path}
-      >
-        {routes[1]?.name}
-      </Link>
       <svg
         className={styles.Nav__icon}
         width="34"
@@ -58,18 +46,15 @@ export default function Nav({ routes }) {
           </clipPath>
         </defs>
       </svg>
-      <Link
-        className={styles.Nav__link + setActiveRoute(routes[2]?.path)}
-        to={routes[2]?.path}
-      >
-        {routes[2]?.name}
-      </Link>
-      <Link
-        className={styles.Nav__link + setActiveRoute(routes[3]?.path)}
-        to={routes[3]?.path}
-      >
-        {routes[3]?.name}
-      </Link>
+      {routes.map((item) => (
+        <Link
+          className={styles.Nav__link + setActiveRoute(item?.path)}
+          key={item?.name}
+          to={item?.path}
+        >
+          {item?.name}
+        </Link>
+      ))}
     </div>
   );
 }
