@@ -88,7 +88,7 @@ span.btn-circle {
   }
 
   &-green {
-    color: #1CC700;
+    color: #1cc700;
   }
 
   &-red {
@@ -144,5 +144,14 @@ span.btn-circle {
 .fw {
   &-600 {
     font-weight: 600;
+  }
+}
+
+.modal {
+  &-block {
+    background-color: var(--tenth-color);
+    border-radius: 12px;
+    padding: 40px;
+    min-width: 55vw;
   }
 }

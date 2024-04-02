@@ -64,7 +64,7 @@ export default function ProfileSettings() {
                 },
                 maxLenght: {
                   value: 255,
-                  message: errorsMessage["minLenght"](255),
+                  message: errorsMessage["maxLenght"](255),
                 },
                 validate: {
                   confirm: (value) =>

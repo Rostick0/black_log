@@ -28,7 +28,7 @@ export default function SupportRequestInfo({
         <div className={styles.SupportRequestInfo__item_name}>
           Refund amount
         </div>
-        <div className={styles.SupportRequestInfo__item_value}>{amount}</div>
+        <div className={styles.SupportRequestInfo__item_value}>{(+amount)?.toLocaleString()}$</div>
       </div>
     </div>
   );

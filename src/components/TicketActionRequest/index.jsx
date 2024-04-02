@@ -37,7 +37,7 @@ export default function TicketActionRequest({ id }) {
   return (
     <div className={styles.TicketActionRequest}>
       <Button onClick={() => returnClose({ id })}>Close</Button>
-      <Button onClick={() => returnRefund({ id })}>Refund</Button>
+      <Button variant="outlined" onClick={() => returnRefund({ id })}>Refund</Button>
     </div>
   );
 }

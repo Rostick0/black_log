@@ -50,7 +50,7 @@ export default memo(function TelegramInput({ user, userUpdate }) {
           required: true,
           maxLenght: {
             value: 255,
-            message: errorsMessage["minLenght"](255),
+            message: errorsMessage["maxLenght"](255),
           },
         }}
       />

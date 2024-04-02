@@ -65,7 +65,7 @@ export default function Login() {
               required: true,
               maxLenght: {
                 value: 255,
-                message: errorsMessage["minLenght"](255),
+                message: errorsMessage["maxLenght"](255),
               },
             }}
           />
@@ -83,7 +83,7 @@ export default function Login() {
               },
               maxLenght: {
                 value: 255,
-                message: errorsMessage["minLenght"](255),
+                message: errorsMessage["maxLenght"](255),
               },
             }}
           />

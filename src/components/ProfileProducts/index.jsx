@@ -1,10 +1,20 @@
+import { useState } from "react";
 import { usePurchasesGetQuery } from "../../app/store/modules/purchases.js";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
+import Modal from "../../ui/Modal/index.jsx";
+import InputForm from "../../Form/InputForm/index.jsx";
+import { useForm } from "react-hook-form";
+import ModalRefund from "./components/ModalRefund";
+import ModalTicket from "./components/ModalTicket/index.jsx";
 
 export default function ProfileProducts() {
   const { data } = usePurchasesGetQuery();
+  const [activeModalReturns, setActiveModalReturns] = useState(false);
+  const [activeModalTicket, setActiveModalTicket] = useState(false);
+  const [purchaseId, setPurchaseId] = useState(null);
+  const [productId, setProductId] = useState(null);
 
   return (
     <div className={styles.ProfileProducts}>
@@ -16,7 +26,10 @@ export default function ProfileProducts() {
             <th className="table-th">Status</th>
             <th className="table-th">Seller</th>
             <th className="table-th">Price</th>
-            <th className="table-th table-item-action"></th>
+            <th
+              className="table-th table-item-action"
+              style={{ width: 44 }}
+            ></th>
             <th className="table-th table-item-action"></th>
           </tr>
         </thead>
@@ -29,9 +42,20 @@ export default function ProfileProducts() {
                 </td>
                 <td className="table-td">{item?.order?.status}</td>
                 <td className="table-td">{item?.order?.seller?.name}</td>
-                <td className="table-td color-ui fw-600">{item?.order.amount}$</td>
-                <td className="table-td table-item-action">
-                  <Button className="table-btn">
+                <td className="table-td color-ui fw-600">
+                  {item?.order.amount}$
+                </td>
+                <td
+                  className="table-td table-item-action"
+                  style={{ width: 44 }}
+                >
+                  <Button
+                    className="table-btn"
+                    onClick={() => {
+                      setActiveModalReturns(true);
+                      setPurchaseId(item.id);
+                    }}
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -50,7 +74,13 @@ export default function ProfileProducts() {
                   </Button>
                 </td>
                 <td className="table-td table-item-action">
-                  <Button className="table-btn">
+                  <Button
+                    className="table-btn"
+                    onClick={() => {
+                      setActiveModalTicket(true);
+                      setProductId(item?.order?.product_id);
+                    }}
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -72,6 +102,18 @@ export default function ProfileProducts() {
             ))}
         </tbody>
       </table>
+      {activeModalReturns && (
+        <ModalRefund
+          close={() => setActiveModalReturns(false)}
+          purchase_id={purchaseId}
+        />
+      )}
+      {activeModalTicket && (
+        <ModalTicket
+          close={() => setActiveModalTicket(false)}
+          product_id={productId}
+        />
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function ModalAddingProduct({ close }) {
 
   return (
     <Modal close={close}>
-      <div className={styles.ModalAddingProduct}>
+      <div className={styles.ModalAddingProduct + " modal-block"}>
         <Title className="text-center" variant="small">
           Adding a new product
         </Title>
