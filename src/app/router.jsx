@@ -63,7 +63,6 @@ export const ROUTE_NAMES = {
     home: "/support/home",
     tickets: "/support/tickets",
     requests: "/support/requests",
-    profile: {},
   },
 };
 

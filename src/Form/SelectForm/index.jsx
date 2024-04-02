@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./style.module.scss";
 import stylesInput from "../../ui/Input/style.module.scss";
 import Control from "../../ui/Control";
@@ -37,7 +37,6 @@ export default function SelectForm({
   }, [defaultValue]);
 
   useEffect(() => {
-    console.log(value);
     if (typeof setValueHookForm !== "function") return;
 
     setValueHookForm(name, value?.value);

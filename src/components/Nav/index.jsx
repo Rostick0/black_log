@@ -5,7 +5,17 @@ import { setClassName } from "../../app/utils/class";
 export default function Nav({ routes }) {
   const location = useLocation();
 
-  const setActiveRoute = (route) => {
+  const setActiveRoute = (route, isWithChild = null) => {
+    if (
+      (
+        isWithChild &&
+        location.pathname?.split("/")?.slice(0, -1)?.join("/") ===
+          route?.split("/")?.slice(0, -1)?.join("/")
+      )
+    ) {
+      return setClassName(styles.active);
+    }
+
     if (route !== location.pathname) return "";
 
     return setClassName(styles.active);
@@ -48,7 +58,9 @@ export default function Nav({ routes }) {
       </svg>
       {routes.map((item) => (
         <Link
-          className={styles.Nav__link + setActiveRoute(item?.path)}
+          className={
+            styles.Nav__link + setActiveRoute(item?.path, item?.isWithChild)
+          }
           key={item?.name}
           to={item?.path}
         >
