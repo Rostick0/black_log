@@ -1,14 +1,52 @@
-import { useCartsGetQuery } from "../../app/store/modules/cart";
+import { useEffect, useMemo, useState } from "react";
+import {
+  useCartCreateMutation,
+  useCartsGetQuery,
+} from "../../app/store/modules/cart";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 
 export default function ProfileProducts() {
-  const cart = JSON.parse(localStorage.getItem("cart") ?? []);
+  const cartInit = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [];
+
+  const [cart, setCart] = useState(cartInit);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const { data } = useCartsGetQuery({
-    "products": cart?.join(','),
+    products: cart?.join(","),
   });
+
+  const [cartBuy] = useCartCreateMutation();
+
+  const price = useMemo(
+    () =>
+      data?.length > 0
+        ? data?.reduce((sum, item) => sum + +item?.amount, 0)
+        : 0,
+    [data]
+  );
+
+  const pay = async () => {
+    const res = await cartBuy({
+      body: {
+        products: cart?.join(","),
+      },
+    });
+
+    if (res?.data?.errors?.balance) {
+      setError(res?.data?.errors?.balance);
+      return;
+    }
+
+    setCart([]);
+  };
 
   return (
     <div className={styles.ProfileBasket}>
@@ -18,9 +56,6 @@ export default function ProfileProducts() {
           <tr className="table-tr">
             <th className="table-th">Links</th>
             <th className="table-th">Type</th>
-            <th className="table-th">Country </th>
-            <th className="table-th">State</th>
-            <th className="table-th">CC</th>
             <th className="table-th">Seller</th>
             <th className="table-th">Price</th>
             <th className="table-th table-item-action"></th>
@@ -30,15 +65,24 @@ export default function ProfileProducts() {
           {data?.length > 0 &&
             data?.map((item) => (
               <tr className="table-tr" key={item.id}>
-                <td className="table-td">{item.link}</td>
-                <td className="table-td">{item.type}</td>
-                <td className="table-td">{item.country}</td>
-                <td className="table-td">{item.state}</td>
-                <td className="table-td">{item.cc}</td>
-                <td className="table-td">{item.seller}</td>
-                <td className="table-td color-ui fw-600">{item.price}</td>
+                <td className="table-td" title={item?.archive_link}>
+                  {item?.archive_link}
+                </td>
+                <td className="table-td">
+                  {item?.productable_type == "App\\Models\\BankLog"
+                    ? "Bank"
+                    : "Product"}
+                </td>
+                <td className="table-td">{item?.seller?.name}</td>
+                <td className="table-td color-ui fw-600">{item?.amount}$</td>
                 <td className="table-td table-item-action">
-                  <Button className="table-btn" variant="red">
+                  <Button
+                    className="table-btn"
+                    variant="red"
+                    onClick={() =>
+                      setCart(cart?.filter((elem) => elem !== item?.id))
+                    }
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -62,9 +106,16 @@ export default function ProfileProducts() {
       </table>
       <div className={styles.ProfileBasket__total}>
         <Title variant="small">Total amount:</Title>
-        <div className="fw-600 color-ui">240$</div>
+        <div className="fw-600 color-ui">{price?.toLocaleString()}$</div>
       </div>
-      <Button className={styles.ProfileBasket__btn}>pay</Button>
+      {error && (
+        <Title variant="small" style={{ color: "var(--ninth-color)" }}>
+          {error}
+        </Title>
+      )}
+      <Button className={styles.ProfileBasket__btn} onClick={pay}>
+        pay
+      </Button>
     </div>
   );
 }

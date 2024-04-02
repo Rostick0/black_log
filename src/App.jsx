@@ -15,7 +15,7 @@ function App() {
   const { theme } = useTheme();
   const the = useMemo(() => (theme === "light" ? "" : " _dark"));
 
-  const { data, isLoading, isError } = useUserGetQuery();
+  const { data, isLoading, isError} = useUserGetQuery();
 
   useEffect(() => {
     if (isLoading) return;

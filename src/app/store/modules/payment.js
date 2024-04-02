@@ -35,14 +35,12 @@ export const paymentApi = createApi({
       }),
       invalidatesTags: [{ type: "Payment", id: "LIST" }],
     }),
-    paymentExchangeCreate: build.mutation({
-      query: ({ body, currency }) => ({
-        url: `payment/exchange/${currency}`,
-        method: "POST",
+    exchangeGet: build.query({
+      query: ({ currency = "BTC" } = {}) => ({
+        url: `/exchange/${currency}`,
         headers: {
           ...getTokenHeader(),
         },
-        body,
       }),
       // invalidatesTags: [{ type: "Payment", id: "LIST" }],
     }),
@@ -52,5 +50,5 @@ export const paymentApi = createApi({
 export const {
   usePaymentsGetQuery,
   usePaymentCreateMutation,
-  paymentExchangeCreate,
+  useExchangeGetQuery,
 } = paymentApi;

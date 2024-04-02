@@ -25,8 +25,12 @@ export default function SelectForm({
   const [active, setActive] = useState(false);
   const [value, setValue] = useState(defaultValue);
 
+  const clearValue = {
+    value: "",
+    name: "",
+  };
+
   useEffect(() => {
-    console.log(defaultValue)
     if (value && defaultValue) return;
 
     setValue(defaultValue);
@@ -127,13 +131,9 @@ export default function SelectForm({
                   <li
                     className={styles.SelectForm__item}
                     onClick={() => {
-                      setValue("");
+                      setValue(clearValue);
                       setActive(false);
-                      typeof onChange === "function" &&
-                        onChange({
-                          value: "",
-                          name: "",
-                        });
+                      typeof onChange === "function" && onChange(clearValue);
                     }}
                   >
                     Reset value

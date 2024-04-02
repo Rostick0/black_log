@@ -5,7 +5,12 @@ import InputForm from "../../Form/InputForm";
 import styles from "./style.module.scss";
 import { useForm } from "react-hook-form";
 import { errorsMessage, setErrorMessage } from "../../app/utils/error";
-import { useWithdrawalsCreateMutation } from "../../app/store/modules/withdrawal";
+import {
+  useExchangeGetQuery,
+  usePaymentCreateMutation,
+} from "../../app/store/modules/payment";
+import { useEffect } from "react";
+import { v4 } from "uuid";
 
 export default function ModalOrderInformation({ close }) {
   const {
@@ -14,12 +19,24 @@ export default function ModalOrderInformation({ close }) {
     formState: { errors },
   } = useForm();
 
-  const [createWithdrawals, result] = useWithdrawalsCreateMutation();
+  const { data } = useExchangeGetQuery();
+  const [createPayment] = usePaymentCreateMutation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      createPayment({
+        body: {
+          unique_key: v4(),
+          userId: 1,
+        },
+        currency: "BTC"
+      });
+    }, 2000);
+  }, []);
 
   const onSubmit = async (values) => {
     // const res = await createWithdrawals({ body: values });
 
-    if (result?.isError) return;
     // console.log(result);
     close();
   };
@@ -91,10 +108,13 @@ export default function ModalOrderInformation({ close }) {
         <div className={styles.ModalOrderInformation__info}>
           <div className={styles.ModalOrderInformation__info_item}>
             <span>You need to make a transfer of 0.0000065654 BTC</span>
-            <Button className={styles.ModalOrderInformation__info_btn} onClick={e => {
-              e.preventDefault();
-              close()
-            }}>
+            <Button
+              className={styles.ModalOrderInformation__info_btn}
+              onClick={(e) => {
+                e.preventDefault();
+                close();
+              }}
+            >
               <svg
                 width="20"
                 height="20"
