@@ -2,6 +2,7 @@ import { setClassName } from "../../app/utils/class";
 import styles from "./style.module.scss";
 import stylesButton from "../../ui/Button/style.module.scss";
 import Control from "../../ui/Control";
+import { useEffect, useRef, useState } from "react";
 
 export default function UploadForm({
   className,
@@ -14,6 +15,7 @@ export default function UploadForm({
   rules = {},
   ...other
 }) {
+  const [value, setValue] = useState();
   const styleClassName = setClassName(className);
   const styleVariant = setClassName(styles[variant]);
 
@@ -23,7 +25,9 @@ export default function UploadForm({
         className={styles.UploadForm + styleClassName + styleVariant}
         {...other}
       >
-        <span className={stylesButton.btn + " btn-circle"}>
+        <span
+          className={stylesButton.btn + " " + styles.UploadForm__btn + " btn-circle"}
+        >
           <svg
             width="20"
             height="21"
@@ -40,8 +44,18 @@ export default function UploadForm({
             />
           </svg>
         </span>
-        <span className="fw-600">{children}</span>
-        <input type="file" {...other} {...register(name, rules)} hidden />
+        <span className="fw-600">{value?.name ?? children}</span>
+        <input
+          type="file"
+          {...other}
+          {...register(name, {
+            ...rules,
+            onChange: (e) => {
+              setValue(e.target.files[0]);
+            },
+          })}
+          hidden
+        />
       </label>
     </Control>
   );

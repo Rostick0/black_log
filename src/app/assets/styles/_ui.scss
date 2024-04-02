@@ -9,6 +9,12 @@
   }
 }
 
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 button.btn-circle,
 span.btn-circle {
   border-radius: 50%;

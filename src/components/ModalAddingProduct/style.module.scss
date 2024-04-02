@@ -4,6 +4,12 @@
   // padding: 40px;
   // min-width: 55vw;
 
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
   &__files {
     display: flex;
     flex-direction: column;
@@ -21,7 +27,6 @@
   }
 
   &__btn {
-    margin-top: 20px;
     width: 100%;
   }
 }

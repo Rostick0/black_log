@@ -55,7 +55,7 @@ export const offerApi = createApi({
     offerUpdate: build.mutation({
       query: ({ body, id }) => ({
         url: `offers/${id}/update`,
-        method: "PUT",
+        method: "POST",
         headers: {
           ...getTokenHeader(),
         },

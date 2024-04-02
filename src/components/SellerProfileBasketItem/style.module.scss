@@ -8,6 +8,10 @@
     margin-bottom: 0;
   }
 
+  &__fields {
+    align-items: flex-end;
+  }
+
   &__field {
     // &:last-child {
     //   grid-column: span 2;
