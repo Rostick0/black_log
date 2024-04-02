@@ -24,6 +24,23 @@ export const offerApi = createApi({
           : [{ type: "Offers", id: "LIST" }];
       },
     }),
+    offersMyGet: build.query({
+      query: (params = {}) => ({
+        url: "offers",
+        headers: {
+          ...getTokenHeader(),
+        },
+        params,
+      }),
+      providesTags: (result) => {
+        return result?.result?.length
+          ? [
+              ...result?.result?.map(({ id }) => ({ type: "Offers", id })),
+              { type: "Offers", id: "LIST" },
+            ]
+          : [{ type: "Offers", id: "LIST" }];
+      },
+    }),
     offerCreate: build.mutation({
       query: ({ body }) => ({
         url: "offers",
@@ -37,7 +54,7 @@ export const offerApi = createApi({
     }),
     offerUpdate: build.mutation({
       query: ({ body, id }) => ({
-        url: `offers/${id}`,
+        url: `offers/${id}/update`,
         method: "PUT",
         headers: {
           ...getTokenHeader(),
@@ -48,7 +65,7 @@ export const offerApi = createApi({
     }),
     offerDelete: build.mutation({
       query: ({ body, id }) => ({
-        url: `offers/${id}`,
+        url: `offers/${id}/delete`,
         method: "DELETE",
         headers: {
           ...getTokenHeader(),
@@ -78,6 +95,7 @@ export const offerApi = createApi({
 
 export const {
   useOffersGetQuery,
+  useOffersMyGetQuery,
   useOfferCreateMutation,
   useOfferUpdateMutation,
   useOfferDeleteMutation,

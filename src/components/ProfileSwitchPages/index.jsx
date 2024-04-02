@@ -34,6 +34,7 @@ export default function ProfileSwitchPages() {
         {
           name: "Your products",
           link: ROUTE_NAMES.seller.profile.basket,
+
         },
         {
           name: "Statistics",

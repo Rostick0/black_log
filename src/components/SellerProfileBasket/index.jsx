@@ -4,18 +4,10 @@ import Title from "../../ui/Title";
 import SellerProfileBasketItem from "../SellerProfileBasketItem";
 import styles from "./style.module.scss";
 import ModalAddingProduct from "../ModalAddingProduct";
+import { useOffersMyGetQuery } from "../../app/store/modules/offer";
 
 export default function SellerProfileBasket() {
-  const data = Array.from(Array(3).keys()).map((item) => ({
-    id: item,
-    link: "dfdgfghgjkhj",
-    type: "dfdgfghgjkhj",
-    country: "dfdgfghgjkhj",
-    state: "dfdgfghgjkhj",
-    cc: "dfdgfghgjkhj",
-    price: "10$",
-    cookies: "dfdgfghgjkhj",
-  }));
+  const { data } = useOffersMyGetQuery();
 
   const [activeModal, setActiveModal] = useState(false);
 
@@ -27,10 +19,12 @@ export default function SellerProfileBasket() {
         </Title>
         <Button onClick={() => setActiveModal(true)}>Add a new</Button>
       </div>
-      {data?.map((item) => (
+      {data?.data?.length > 0 && data?.data?.map((item) => (
         <SellerProfileBasketItem key={item.id} {...item} />
       ))}
-      {activeModal && <ModalAddingProduct close={() => setActiveModal(false)} />}
+      {activeModal && (
+        <ModalAddingProduct close={() => setActiveModal(false)} />
+      )}
     </div>
   );
 }

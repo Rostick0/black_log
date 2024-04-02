@@ -26,6 +26,7 @@ export default function LayoutProfile({ children }) {
         {
           name: "Profile",
           path: ROUTE_NAMES.client.profile.settings,
+          comparisonLink: ROUTE_NAMES.client.profile.settings,
         },
       ];
 
@@ -49,7 +50,7 @@ export default function LayoutProfile({ children }) {
       {
         name: "Profile",
         path: ROUTE_NAMES.client.profile.settings,
-        isWithChild: true
+        comparisonLink: ROUTE_NAMES.client.profile.settings,
       },
     ];
   }, [user]);
