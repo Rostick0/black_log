@@ -36,24 +36,22 @@ export const returnApi = createApi({
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
     }),
     returnRefund: build.mutation({
-      query: ({ body, id }) => ({
-        url: `returns/${id}`,
-        method: "PUT",
+      query: ({ id }) => ({
+        url: `returns/${id}/refund`,
+        method: "POST",
         headers: {
           ...getTokenHeader(),
         },
-        body,
       }),
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
     }),
     returnClose: build.mutation({
-      query: ({ body, id }) => ({
+      query: ({ id }) => ({
         url: `returns/${id}/close`,
-        method: "PUT",
+        method: "POST",
         headers: {
           ...getTokenHeader(),
         },
-        body,
       }),
       invalidatesTags: [{ type: "Returns", id: "LIST" }],
     }),

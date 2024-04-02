@@ -6,21 +6,24 @@ import Ticket from "../Ticket";
 import TicketActionRequest from "../TicketActionRequest";
 import SupportRequestInfo from "../SupportRequestInfo";
 import useFilter from "../../app/hook/useFilter";
+import { useReturnsGetQuery } from "../../app/store/modules/return";
 
 export default function SupportRequests() {
-  const data = Array.from(Array(2).keys()).map((item) => ({
-    id: item,
-    date: "12.03.2024",
-    user: "login",
-    subject: "Low-quality logs",
-    seller: "login",
-    number: 12312,
-    amount: "10$",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    status: "In processing",
-  }));
+  // const data = Array.from(Array(2).keys()).map((item) => ({
+  //   id: item,
+  //   date: "12.03.2024",
+  //   user: "login",
+  //   subject: "Low-quality logs",
+  //   seller: "login",
+  //   number: 12312,
+  //   amount: "10$",
+  //   comment:
+  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  //   status: "In processing",
+  // }));
   const { filters, updateCurrentFilterValue } = useFilter();
+
+  const { data } = useReturnsGetQuery(filters);
 
   return (
     <div className={styles.SupportRequests}>
@@ -47,14 +50,21 @@ export default function SupportRequests() {
         </div>
       </div>
       <div className={styles.SupportRequests__list}>
-        {data?.map((item) => (
-          <Ticket
-            key={item.id}
-            {...item}
-            info={<SupportRequestInfo {...item} />}
-            action={<TicketActionRequest status={item.status} />}
-          />
-        ))}
+        {data?.data?.length > 0 &&
+          data?.data?.map((item) => (
+            <Ticket
+              key={item.id}
+              {...item}
+              info={
+                <SupportRequestInfo
+                  {...item}
+                  number={item?.id}
+                  user={item?.user?.name}
+                />
+              }
+              action={<TicketActionRequest id={item.id} />}
+            />
+          ))}
       </div>
       <Pagination
         links={data?.links}
