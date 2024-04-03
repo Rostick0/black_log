@@ -26,6 +26,7 @@ const ClientProfileTransactions = lazy(() =>
 );
 
 const SellerProfileBasket = lazy(() => import("../pages/Seller/ProfileBasket"));
+const SellerProfileBank = lazy(() => import("../pages/Seller/ProfileBank"));
 const SellerProfileStatistics = lazy(() =>
   import("../pages/Seller/ProfileStatistics")
 );
@@ -56,6 +57,7 @@ export const ROUTE_NAMES = {
   seller: {
     profile: {
       basket: "/seller/profile/basket",
+      bank: "/seller/profile/bank",
       statistics: "/seller/profile/statistics",
     },
   },
@@ -110,6 +112,10 @@ const AppRouter = ({ loggedIn }) => {
             <Route
               path={ROUTE_NAMES.seller.profile.basket}
               element={<SellerProfileBasket />}
+            ></Route>
+              <Route
+              path={ROUTE_NAMES.seller.profile.bank}
+              element={<SellerProfileBank />}
             ></Route>
             <Route
               path={ROUTE_NAMES.seller.profile.statistics}

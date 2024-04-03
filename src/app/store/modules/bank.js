@@ -24,6 +24,23 @@ export const bankApi = createApi({
           : [{ type: "Banks", id: "LIST" }];
       },
     }),
+    banksMyGet: build.query({
+      query: (params = {}) => ({
+        url: "/user/banks",
+        headers: {
+          ...getTokenHeader(),
+        },
+        params,
+      }),
+      providesTags: (result) => {
+        return result?.result?.length
+          ? [
+              ...result?.result?.map(({ id }) => ({ type: "Banks", id })),
+              { type: "Banks", id: "LIST" },
+            ]
+          : [{ type: "Banks", id: "LIST" }];
+      },
+    }),
     bankCreate: build.mutation({
       query: ({ body }) => ({
         url: "banks",
@@ -38,7 +55,7 @@ export const bankApi = createApi({
     bankUpdate: build.mutation({
       query: ({ body, id }) => ({
         url: `banks/${id}/update`,
-        method: "PUT",
+        method: "POST",
         headers: {
           ...getTokenHeader(),
         },
@@ -62,6 +79,7 @@ export const bankApi = createApi({
 
 export const {
   useBanksGetQuery,
+  useBanksMyGetQuery,
   useBankCreateMutation,
   useBankUpdateMutation,
   useBankDeleteMutation,

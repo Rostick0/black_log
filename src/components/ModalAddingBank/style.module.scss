@@ -1,0 +1,32 @@
+.ModalAddingBank {
+  // background-color: var(--tenth-color);
+  // border-radius: 12px;
+  // padding: 40px;
+  // min-width: 55vw;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  &__files {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    margin-bottom: 20px;
+
+    &_item {
+      background-color: var(--seventh-color);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+    }
+  }
+
+  &__btn {
+    width: 100%;
+  }
+}

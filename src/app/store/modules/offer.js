@@ -26,7 +26,7 @@ export const offerApi = createApi({
     }),
     offersMyGet: build.query({
       query: (params = {}) => ({
-        url: "offers",
+        url: "/user/offers",
         headers: {
           ...getTokenHeader(),
         },

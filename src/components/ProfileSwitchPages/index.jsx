@@ -34,7 +34,10 @@ export default function ProfileSwitchPages() {
         {
           name: "Your products",
           link: ROUTE_NAMES.seller.profile.basket,
-
+        },
+        {
+          name: "Your banks",
+          link: ROUTE_NAMES.seller.profile.bank,
         },
         {
           name: "Statistics",
