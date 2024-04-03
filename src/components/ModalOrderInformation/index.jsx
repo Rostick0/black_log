@@ -11,48 +11,64 @@ import {
 } from "../../app/store/modules/payment";
 import { useEffect } from "react";
 import { v4 } from "uuid";
+import { useSelector } from "react-redux";
+import { useLazyUserGetQuery } from "../../app/store/modules/userSettings";
 
 export default function ModalOrderInformation({ close }) {
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors },
   } = useForm();
+  const user = useSelector((state) => state.user.value);
 
+  const [getUsers] = useLazyUserGetQuery();
   const { data } = useExchangeGetQuery();
-  const [createPayment] = usePaymentCreateMutation();
+  const [createPayment, result] = usePaymentCreateMutation();
 
+  const uniqueKey = v4();
   useEffect(() => {
-    setTimeout(() => {
-      createPayment({
+    createPayment({
+      body: {
+        unique_key: uniqueKey,
+        userId: user.id,
+      },
+      currency: "BTC",
+    });
+
+    let intervalId = setInterval(async () => {
+      const res = await createPayment({
         body: {
-          unique_key: v4(),
-          userId: 1,
+          unique_key: uniqueKey,
+          userId: user.id,
         },
-        currency: "BTC"
+        currency: "BTC",
       });
-    }, 2000);
+
+      if (!res?.data?.status) {
+        clearInterval(intervalId);
+        getUsers();
+        close();
+      }
+    }, 15000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
-  const onSubmit = async (values) => {
-    // const res = await createWithdrawals({ body: values });
-
-    // console.log(result);
-    close();
-  };
-
   return (
-    <Modal close={close}>
-      <form
+    <Modal>
+      <div
         className={styles.ModalOrderInformation}
-        method="post"
-        onSubmit={handleSubmit(onSubmit)}
+        // method="post"
+        // onSubmit={handleSubmit(onSubmit)}
       >
         <Title className="text-center" variant="small">
           Order Information
         </Title>
         <div className={styles.ModalOrderInformation__inputs}>
-          <InputForm
+          {/* <InputForm
             label="Wallet"
             name="address"
             error={setErrorMessage({ formField: errors?.name })}
@@ -64,8 +80,8 @@ export default function ModalOrderInformation({ close }) {
                 message: errorsMessage["maxLenght"](255),
               },
             }}
-          />
-          <InputForm
+          /> */}
+          {/* <InputForm
             label="Give"
             name="amount"
             error={setErrorMessage({ formField: errors?.name })}
@@ -90,29 +106,31 @@ export default function ModalOrderInformation({ close }) {
                 message: errorsMessage["maxLenght"](255),
               },
             }}
-          />
+          /> */}
           <InputForm
-            label="Status"
-            name="amount"
-            error={setErrorMessage({ formField: errors?.name })}
+            label="Unique key"
+            name="unique_key"
+            defaultValue={uniqueKey}
+            error={setErrorMessage({ formField: errors?.unique_key })}
             register={register}
-            rules={{
-              required: true,
-              maxLenght: {
-                value: 255,
-                message: errorsMessage["maxLenght"](255),
-              },
-            }}
+            readOnly
+            // rules={{
+            //   required: true,
+            //   maxLenght: {
+            //     value: 255,
+            //     message: errorsMessage["maxLenght"](255),
+            //   },
+            // }}
           />
         </div>
         <div className={styles.ModalOrderInformation__info}>
           <div className={styles.ModalOrderInformation__info_item}>
-            <span>You need to make a transfer of 0.0000065654 BTC</span>
+            {/* <span>You need to make a transfer of 0.0000065654 BTC</span> */}
+            <span>1 BTC - {data}$</span>
             <Button
               className={styles.ModalOrderInformation__info_btn}
-              onClick={(e) => {
-                e.preventDefault();
-                close();
+              onClick={() => {
+                navigator.clipboard.writeText(result?.data?.wallet);
               }}
             >
               <svg
@@ -137,20 +155,20 @@ export default function ModalOrderInformation({ close }) {
             </Button>
           </div>
           <div className={styles.ModalOrderInformation__info_item}>
-            to address fdfkgjflgkdfghd54gfd5g4f6g6d5f
+            to address {result?.data?.wallet}
           </div>
         </div>
-        <img
+        {/* <img
           className={styles.ModalOrderInformation__qr_code}
           src="http://support.dt-a.com.au/wp-content/uploads/2018/06/qr-code-rule-website.png"
           alt=""
           width="200"
           height="200"
-        />
-        <Button className={styles.ModalOrderInformation__btn}>
+        /> */}
+        <Button className={styles.ModalOrderInformation__btn} onClick={close}>
           Cancel order
         </Button>
-      </form>
+      </div>
     </Modal>
   );
 }

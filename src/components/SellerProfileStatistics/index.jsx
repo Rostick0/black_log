@@ -43,7 +43,10 @@ export default function SellerProfileStatistics() {
               styles.SellerProfileStatistics__stats_item_count + " color-ui"
             }
           >
-            28%
+            {data?.refunded_count > 0
+              ? data?.refunded_count
+              : Math.floor(data?.purchases_count / data?.refunded_count / 100) *
+                100}
           </span>
         </div>
       </div>
