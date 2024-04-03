@@ -9,6 +9,7 @@ export default function SelectForm({
   label,
   error,
   inputClassName,
+  iconClassName,
   styleColor,
   defaultValue,
   placeholder,
@@ -20,6 +21,7 @@ export default function SelectForm({
   items,
   withIcon = false,
   withReset = true,
+  leftContent = null,
   resetField,
 }) {
   const [active, setActive] = useState(false);
@@ -44,6 +46,7 @@ export default function SelectForm({
 
   const styleSelectClassName = className ? " " + className : "";
   const styleInputClassName = inputClassName ? " " + inputClassName : "";
+  const styleiconClassName = iconClassName ? " " + iconClassName : "";
 
   const styleClass = styles["SelectForm_style_" + styleColor];
   const styleLink = styleClass
@@ -73,6 +76,7 @@ export default function SelectForm({
           className={styles.SelectForm__switch + styleSelectClassName}
           onClick={() => setActive(!active)}
         >
+          {leftContent}
           <input {...register(name, rules)} hidden />
           <input
             className={
@@ -88,7 +92,7 @@ export default function SelectForm({
           />
           {withIcon && (
             <svg
-              className={styles.SelectForm__icon}
+              className={styles.SelectForm__icon + styleiconClassName}
               width="21"
               height="20"
               viewBox="0 0 21 20"

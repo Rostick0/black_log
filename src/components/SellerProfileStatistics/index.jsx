@@ -1,12 +1,20 @@
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
 import StatisticChart from "../StatisticChart";
+import { useSellerStatsGetQuery } from "../../app/store/modules/sellerStats";
+import useFilter from "../../app/hook/useFilter";
 
 export default function SellerProfileStatistics() {
+  const { filters, updateCurrentFilterValue } = useFilter();
+  const { data } = useSellerStatsGetQuery(filters);
+
   return (
     <div className={styles.SellerProfileStatistics}>
       <Title variant="small">Your purchases</Title>
-      <StatisticChart />
+      <StatisticChart
+        setStartDate={(value) => updateCurrentFilterValue("start_date", value)}
+        setEndDate={(value) => updateCurrentFilterValue("end_date", value)}
+      />
       <div className={styles.SellerProfileStatistics__stats}>
         <div className={styles.SellerProfileStatistics__stats_item + " fw-600"}>
           <span>Total number of sales</span>
@@ -15,7 +23,7 @@ export default function SellerProfileStatistics() {
               styles.SellerProfileStatistics__stats_item_count + " color-ui"
             }
           >
-            256
+            {data?.purchases_count}
           </span>
         </div>
         <div className={styles.SellerProfileStatistics__stats_item + " fw-600"}>
@@ -25,7 +33,7 @@ export default function SellerProfileStatistics() {
               styles.SellerProfileStatistics__stats_item_count + " color-ui"
             }
           >
-            256
+            {data?.refunded_count}
           </span>
         </div>
         <div className={styles.SellerProfileStatistics__stats_item + " fw-600"}>

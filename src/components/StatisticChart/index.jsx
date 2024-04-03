@@ -1,33 +1,12 @@
-// StatisticChart
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Tooltip,
-//   Filler,
-//   Legend,
-// } from "chart.js";
-// import ChartJS from "chart.js/auto"
-// import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import "chartjs-plugin-style";
-
+import SelectForm from "../../Form/SelectForm";
 import _ from "lodash";
 import styles from "./style.module.scss";
 import { useTheme } from "../../app/context/ThemeContext";
 import { useEffect, useMemo, useRef } from "react";
-
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Tooltip,
-//   Filler,
-//   Legend
-// );
+import { useForm } from "react-hook-form";
+import { dateList } from "../../app/utils/date";
 
 const labels = [
   "Aug 2018",
@@ -42,59 +21,17 @@ const labels = [
   "May 2019",
 ];
 
-// const plugins = (isLight) => ({
-//   legend: {
-//     display: false,
-//   },
-//   tooltip: {
-//     backgroundColor: isLight ? "#fff" : "#000",
-//     displayColors: false,
-//     padding: {
-//       left: 30,
-//       right: 30,
-//       top: 12,
-//       bottom: 12,
-//     },
-//     bodyFont: {
-//       size: 14,
-//       weight: 700,
-//     },
-//     caretPadding: 18,
-//     callbacks: {
-//       title: function (context) {
-//         return "";
-//       },
-//       labelTextColor: function (context) {
-//         return "#005DA9";
-//       },
-//     },
-//     intersect: false,
-//     shadowOffsetX: 3,
-//     shadowOffsetY: 3,
-//     shadowBlur: 10,
-//     shadowColor: "rgba(0, 0, 0, 0.3)",
-//     yAlign: "bottom",
-//     // bevelWidth: 3,
-//     // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
-//     // bevelShadowColor: "rgba(0, 0, 0, 0.5)",
-//     // shadowOffsetX: 3,
-//     // shadowOffsetY: 3,
-//     // shadowBlur: 10,
-//     // shadowColor: "rgba(0, 0, 0, 0.5)",
-//     // position: "",
-//     // display: false,
-//   },
-// });
-
 const datasetsDefault = (isLight) => ({
   fill: true,
   pointHoverBackgroundColor: isLight ? "#f2f7fe" : "#22272f",
   backgroundColor: "transparent",
 });
 
-export default function StatisticChart() {
+export default function StatisticChart({setStartDate, setEndDate}) {
   const { theme, isLight } = useTheme();
   const chartRef = useRef(null);
+
+  const { register } = useForm();
 
   const options = useMemo(
     () => ({
@@ -217,9 +154,39 @@ export default function StatisticChart() {
     <div className={styles.StatisticChart}>
       <div className={styles.StatisticChart__top}>
         <div className={styles.StatisticChart__title}>Total sales</div>
+        <form className={styles.StatisticChart__form}>
+          <SelectForm
+            inputClassName={styles.StatisticChart__select_input}
+            iconClassName={styles.StatisticChart__select_icon}
+            name="start_date"
+            onChange={item => {
+              setStartDate(item?.value)
+              // console.log(item);
+            }}
+            register={register}
+            leftContent={
+              <span className={styles.StatisticChart__select_label}>from</span>
+            }
+            items={dateList('2020-01-01')}
+            withIcon
+          />
+          <SelectForm
+            inputClassName={styles.StatisticChart__select_input}
+            iconClassName={styles.StatisticChart__select_icon}
+            name="end_date"
+            onChange={item => {
+              setEndDate(item?.value)
+            }}
+            register={register}
+            leftContent={
+              <span className={styles.StatisticChart__select_label}>to</span>
+            }
+            items={dateList('2020-01-01', true)}
+            withIcon
+          />
+        </form>
       </div>
       <canvas ref={chartRef} />
-      {/* <Line options={options} data={data} /> */}
     </div>
   );
 }
