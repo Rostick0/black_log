@@ -32,7 +32,10 @@ export default function SellerProfileStatistics() {
         />
       )}
       <div className={styles.SellerProfileStatistics__stats}>
-        <div className={styles.SellerProfileStatistics__stats_item + " fw-600"}>
+        <div
+          className={styles.SellerProfileStatistics__stats_item + " fw-600"}
+          style={{ color: "#018CFE" }}
+        >
           <span>Total number of sales</span>
           <span
             className={
@@ -42,7 +45,10 @@ export default function SellerProfileStatistics() {
             {totalSales}
           </span>
         </div>
-        <div className={styles.SellerProfileStatistics__stats_item + " fw-600"}>
+        <div
+          className={styles.SellerProfileStatistics__stats_item + " fw-600"}
+          style={{ color: "#94CFFF" }}
+        >
           <span>Refuted</span>
           <span
             className={
@@ -61,7 +67,7 @@ export default function SellerProfileStatistics() {
           >
             {totaRefuted === 0
               ? totaRefuted
-              : Math.floor(totalSales / totaRefuted * 100) / 100}
+              : Math.floor((totalSales / totaRefuted) * 100) / 100}
           </span>
         </div>
       </div>
