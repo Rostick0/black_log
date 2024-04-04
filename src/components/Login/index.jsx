@@ -20,12 +20,7 @@ export default function Login() {
     register,
     setError,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      login: "John Doe",
-      password: "password123",
-    },
-  });
+  } = useForm();
 
   const dispatch = useDispatch();
 

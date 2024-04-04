@@ -1,6 +1,6 @@
 import React from "react";
 import { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 const Banks = lazy(() => import("../pages/Banks"));
 const Home = lazy(() => import("../pages/Home"));
@@ -113,7 +113,7 @@ const AppRouter = ({ loggedIn }) => {
               path={ROUTE_NAMES.seller.profile.basket}
               element={<SellerProfileBasket />}
             ></Route>
-              <Route
+            <Route
               path={ROUTE_NAMES.seller.profile.bank}
               element={<SellerProfileBank />}
             ></Route>
@@ -134,11 +134,15 @@ const AppRouter = ({ loggedIn }) => {
               path={ROUTE_NAMES.support.requests}
               element={<SupportRequests />}
             ></Route>
+
+            <Route path="*" element={<Navigate to={ROUTE_NAMES.main} />} />
           </>
         ) : (
           <>
             <Route path={ROUTE_NAMES.login} element={<Login />}></Route>
             <Route path={ROUTE_NAMES.register} element={<Register />}></Route>
+
+            <Route path="*" element={<Navigate to={ROUTE_NAMES.login} />} />
           </>
         )}
       </Routes>

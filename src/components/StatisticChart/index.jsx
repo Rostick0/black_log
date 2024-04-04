@@ -8,18 +8,18 @@ import { useEffect, useMemo, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { dateList } from "../../app/utils/date";
 
-const labels = [
-  "Aug 2018",
-  "Sep 2018",
-  "Oct 2018",
-  "Nov 2018",
-  "Dec 2018",
-  "Jan 2019",
-  "Feb 2019",
-  "Mar 2019",
-  "Apr 2019",
-  "May 2019",
-];
+// const labels = [
+//   "Aug 2018",
+//   "Sep 2018",
+//   "Oct 2018",
+//   "Nov 2018",
+//   "Dec 2018",
+//   "Jan 2019",
+//   "Feb 2019",
+//   "Mar 2019",
+//   "Apr 2019",
+//   "May 2019",
+// ];
 
 const datasetsDefault = (isLight) => ({
   fill: true,
@@ -27,12 +27,15 @@ const datasetsDefault = (isLight) => ({
   backgroundColor: "transparent",
 });
 
-export default function StatisticChart({setStartDate, setEndDate}) {
+export default function StatisticChart({
+  chartData,
+  setStartDate,
+  setEndDate,
+}) {
   const { theme, isLight } = useTheme();
   const chartRef = useRef(null);
 
   const { register } = useForm();
-
   const options = useMemo(
     () => ({
       responsive: true,
@@ -117,10 +120,16 @@ export default function StatisticChart({setStartDate, setEndDate}) {
   );
 
   const data = {
-    labels,
+    labels: chartData?.months?.map((item) => item.value),
     datasets: [
       {
-        data: labels.map(() => _.random(1000, 2500)),
+        data: chartData?.months?.map((item) => {
+          return (
+            chartData?.purchases?.find(
+              (elem) => elem.year === item.year && elem.month === item.month
+            )?.count ?? 0
+          );
+        }),
         borderColor: "#018CFE",
         ...datasetsDefault(isLight),
         shadowColor: "rgba(0, 0, 0, 0.5)",
@@ -129,7 +138,13 @@ export default function StatisticChart({setStartDate, setEndDate}) {
         shadowOffsetY: 5,
       },
       {
-        data: labels.map(() => _.random(1000, 2500)),
+        data: chartData?.months?.map((item) => {
+          return (
+            chartData?.refunded?.find(
+              (elem) => elem.year === item.year && elem.month === item.month
+            )?.count ?? 0
+          );
+        }),
         borderColor: "#94CFFF",
         ...datasetsDefault(isLight),
       },
@@ -159,29 +174,29 @@ export default function StatisticChart({setStartDate, setEndDate}) {
             inputClassName={styles.StatisticChart__select_input}
             iconClassName={styles.StatisticChart__select_icon}
             name="start_date"
-            onChange={item => {
-              setStartDate(item?.value)
+            onChange={(item) => {
+              setStartDate(item?.value);
               // console.log(item);
             }}
             register={register}
             leftContent={
               <span className={styles.StatisticChart__select_label}>from</span>
             }
-            items={dateList('2020-01-01')}
+            items={dateList("2020-01-01")}
             withIcon
           />
           <SelectForm
             inputClassName={styles.StatisticChart__select_input}
             iconClassName={styles.StatisticChart__select_icon}
             name="end_date"
-            onChange={item => {
-              setEndDate(item?.value)
+            onChange={(item) => {
+              setEndDate(item?.value);
             }}
             register={register}
             leftContent={
               <span className={styles.StatisticChart__select_label}>to</span>
             }
-            items={dateList('2020-01-01', true)}
+            items={dateList("2020-01-01", true)}
             withIcon
           />
         </form>
