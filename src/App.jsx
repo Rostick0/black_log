@@ -31,10 +31,11 @@ function App() {
   useEffect(() => {
     if (!user) return;
 
+    window.io = require("socket.io-client");
     window.echo = new Echo({
       broadcaster: "socket.io",
       host: "https://other.punter.website:6001/",
-      host: "http://127.0.0.1:6001/",
+      // host: "http://127.0.0.1:6001/",
       auth: {
         headers: {
           ...getTokenHeader(),

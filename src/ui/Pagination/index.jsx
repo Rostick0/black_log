@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { setClassName } from "../../app/utils/class";
 import Button from "../Button";
 import styles from "./style.module.scss";
