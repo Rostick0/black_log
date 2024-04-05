@@ -7,14 +7,14 @@ import {
   useTicketMessagesGetQuery,
   useTicketChatCreateMutation,
 } from "../../app/store/modules/ticketChat";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 export default function TicketChat() {
   const { id } = useParams();
   const user = useSelector((state) => state.user).value;
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useTicketMessagesGetQuery({ id });
   const [messages, setMessages] = useState();
@@ -30,6 +30,18 @@ export default function TicketChat() {
     });
   }, [isLoading]);
 
+  useEffect(() => {
+    if (!window.echo) return;
+
+    window.echo
+      .private("tickets-chat." + id) // Убедитесь, что это имя канала совпадает с тем, что вы используете на сервере
+      .listen(".TicketMessageSent", (e) => {
+        console.log(e); // Логируем в консоль для отладки
+        // setMessages([...messages, e]);
+      });
+    console.log(window.echo);
+  }, [window.echo]);
+
   const messagesRef = useRef(null);
 
   const { handleSubmit, register, reset } = useForm();
@@ -38,7 +50,7 @@ export default function TicketChat() {
     // setMessages([
     //   ...messages,
     // ]);
-    // const res = await sendMessage({ body: { ...values, ticket_id: id } });
+    const res = await sendMessage({ body: { ...values, ticket_id: id } });
     reset({ text: "" });
     setTimeout(() => {
       messagesRef.current.scrollIntoView({ behavior: "smooth" });
@@ -54,7 +66,7 @@ export default function TicketChat() {
   return (
     <div className={styles.TicketChat}>
       <div className={styles.TicketChat__top}>
-        <button className="d-flex">
+        <button className="d-flex" onClick={() => navigate(-1)}>
           <svg
             width="24"
             height="24"
@@ -75,6 +87,7 @@ export default function TicketChat() {
       </div>
       <div className={styles.TicketChat__content}>
         <div className={styles.TicketChat__messages}>
+          <div className="" ref={messagesRef}></div>
           {messages?.length > 0 &&
             messages?.map((item) => (
               <div
@@ -91,7 +104,6 @@ export default function TicketChat() {
                 </div>
               </div>
             ))}
-          <div className="" ref={messagesRef}></div>
         </div>
         <form
           className={styles.TicketChat__form}

@@ -5,8 +5,9 @@ import "./app/assets/styles/index.scss";
 import { useTheme } from "./app/context/ThemeContext";
 import { useUserGetQuery } from "./app/store/modules/userSettings";
 import { useDispatch, useSelector } from "react-redux";
-import { removeToken } from "./app/utils/token";
+import { getTokenHeader, removeToken } from "./app/utils/token";
 import { setUser } from "./app/store/modules/user";
+import Echo from "laravel-echo";
 
 function App() {
   const user = useSelector((state) => state.user.value);
@@ -15,7 +16,7 @@ function App() {
   const { theme } = useTheme();
   const the = useMemo(() => (theme === "light" ? "" : " _dark"));
 
-  const { data, isLoading, isError} = useUserGetQuery();
+  const { data, isLoading, isError } = useUserGetQuery();
 
   useEffect(() => {
     if (isLoading) return;
@@ -26,7 +27,24 @@ function App() {
   }, [data]);
 
   const isAuth = useMemo(() => localStorage.getItem("auth"), [user]);
-  
+
+  useEffect(() => {
+    if (!user) return;
+
+    window.echo = new Echo({
+      broadcaster: "socket.io",
+      host: "https://other.punter.website:6001/",
+      host: "http://127.0.0.1:6001/",
+      auth: {
+        headers: {
+          ...getTokenHeader(),
+        },
+      },
+      // Для SPA:
+      withCredentials: true,
+    });
+  }, [user]);
+
   return (
     <div className={"wrapper" + the}>
       <BrowserRouter>

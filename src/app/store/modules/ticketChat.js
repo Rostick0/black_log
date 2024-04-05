@@ -33,7 +33,7 @@ export const ticketChatApi = createApi({
         },
         body,
       }),
-      invalidatesTags: [{ type: "TicketChat" }],
+      // invalidatesTags: [{ type: "TicketChat" }],
     }),
   }),
 });

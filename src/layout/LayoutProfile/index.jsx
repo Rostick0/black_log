@@ -9,7 +9,7 @@ export default function LayoutProfile({ children }) {
   const user = useSelector((state) => state.user.value);
 
   const routes = useMemo(() => {
-    if (user?.role_id === 4)
+    if (user?.role_id === 3)
       return [
         {
           name: "Home",
