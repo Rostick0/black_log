@@ -83,7 +83,6 @@ export default function Market() {
         <table className={styles.Market__table + " table"}>
           <thead>
             <tr className="table-tr">
-              <th className="table-th">Links</th>
               <th className="table-th">Country </th>
               <th className="table-th">Seller</th>
               <th className="table-th">Price</th>
@@ -94,20 +93,17 @@ export default function Market() {
             {data?.data?.length > 0 &&
               data?.data?.map((item) => (
                 <tr className="table-tr" key={item.id}>
-                  <td className="table-td" title={item.archive_link}>
-                    {item?.archive_link}
-                  </td>
                   <td className="table-td">{item?.country}</td>
                   <td className="table-td">{item?.seller?.name} </td>
                   <td className="table-td color-ui fw-600">{item?.amount}$</td>
                   <td className="table-td table-item-action">
-                    {cartProduct?.find((elem) => elem === item?.product?.id) ? (
+                    {cartProduct?.find((elem) => elem === item.product_id) ? (
                       <Button
                         className="table-btn"
                         variant="red"
                         onClick={() =>
                           setCartProduct(
-                            cartProduct?.filter((elem) => elem !== item?.product?.id)
+                            cartProduct?.filter((elem) => elem !== item.product_id)
                           )
                         }
                       >
@@ -131,7 +127,7 @@ export default function Market() {
                         className="table-btn"
                         onClick={() =>
                           setCartProduct([
-                            ...new Set([...cartProduct, item?.product?.id]),
+                            ...new Set([...cartProduct, item?.product_id]),
                           ])
                         }
                       >

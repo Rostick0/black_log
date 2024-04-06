@@ -10,7 +10,7 @@ export default function HotTickets() {
 
   return (
     <div className={styles.HotTickets}>
-      <Title>Hot offers</Title>
+      <Title>Hot tickets</Title>
       <div className={styles.HotTickets__content}>
         <table className={styles.HotTickets__table + " table"}>
           <thead>

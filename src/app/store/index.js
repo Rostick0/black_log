@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./modules/auth";
 import { bankApi } from "./modules/bank";
+import { downloadApi } from "./modules/download";
 import { cartApi } from "./modules/cart";
 import { offerApi } from "./modules/offer";
 import { paymentApi } from "./modules/payment";
@@ -20,6 +21,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [downloadApi.reducerPath]: downloadApi.reducer,
     [offerApi.reducerPath]: offerApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
     [purchasesApi.reducerPath]: purchasesApi.reducer,
@@ -38,6 +40,7 @@ export const store = configureStore({
       authApi.middleware,
       bankApi.middleware,
       cartApi.middleware,
+      downloadApi.middleware,
       offerApi.middleware,
       paymentApi.middleware,
       purchasesApi.middleware,

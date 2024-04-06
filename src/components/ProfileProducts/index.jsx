@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePurchasesGetQuery } from "../../app/store/modules/purchases.js";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
@@ -8,6 +8,7 @@ import InputForm from "../../Form/InputForm/index.jsx";
 import { useForm } from "react-hook-form";
 import ModalRefund from "./components/ModalRefund";
 import ModalTicket from "./components/ModalTicket/index.jsx";
+import { useLazyDownloadGetQuery } from "../../app/store/modules/download.js";
 
 export default function ProfileProducts() {
   const { data } = usePurchasesGetQuery();
@@ -15,6 +16,8 @@ export default function ProfileProducts() {
   const [activeModalTicket, setActiveModalTicket] = useState(false);
   const [purchaseId, setPurchaseId] = useState(null);
   const [productId, setProductId] = useState(null);
+
+  const [fetchDownload] = useLazyDownloadGetQuery();
 
   return (
     <div className={styles.ProfileProducts}>
@@ -37,8 +40,14 @@ export default function ProfileProducts() {
           {data?.data?.length > 0 &&
             data?.data?.map((item) => (
               <tr className="table-tr" key={item.id}>
-                <td className="table-td" title={item.link}>
-                  {item.link}
+                <td
+                  className="table-td color-ui"
+                  title={item?.productable?.archive_link}
+                  onClick={() =>
+                    fetchDownload({ path: item?.productable?.archive_link })
+                  }
+                >
+                  {item?.productable?.archive_link}
                 </td>
                 <td className="table-td">{item?.order?.status}</td>
                 <td className="table-td">{item?.order?.seller?.name}</td>

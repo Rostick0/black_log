@@ -3,6 +3,7 @@ import { useOffersGetHotQuery } from "../../app/store/modules/offer";
 import Button from "../../ui/Button";
 import Title from "../../ui/Title";
 import styles from "./style.module.scss";
+import { URL_BACKEND } from "../../app/store/utils";
 
 export default function HotOffers() {
   const initialData = localStorage.getItem("cart")
@@ -24,7 +25,6 @@ export default function HotOffers() {
         <table className={styles.HotOffers__table + " table"}>
           <thead>
             <tr className="table-tr">
-              <th className="table-th">Links</th>
               <th className="table-th">Balance</th>
               <th className="table-th">Coutry</th>
               <th className="table-th">Price</th>
@@ -35,7 +35,6 @@ export default function HotOffers() {
             {data?.length > 0 &&
               data?.map((item) => (
                 <tr className="table-tr" key={item.id}>
-                  <td className="table-td" title={item.archive_link}>{item.archive_link}</td>
                   <td className="table-td">{item.amount}</td>
                   <td className="table-td">{item.country}</td>
                   <td className="table-td color-ui fw-600">{item.amount}$</td>
@@ -46,7 +45,9 @@ export default function HotOffers() {
                         variant="red"
                         onClick={() =>
                           setCartProduct(
-                            cartProduct?.filter((elem) => elem !== item?.product?.id)
+                            cartProduct?.filter(
+                              (elem) => elem !== item?.product?.id
+                            )
                           )
                         }
                       >
