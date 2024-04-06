@@ -79,9 +79,9 @@ export default function ProfileProducts() {
                   <Button
                     className="table-btn"
                     variant="red"
-                    onClick={() =>
-                      setCart(cart?.filter((elem) => elem !== item?.id))
-                    }
+                    onClick={() => {
+                      setCart([...cart]?.filter((elem) => elem !== item?.product_id))
+                    }}
                   >
                     <svg
                       width="20"

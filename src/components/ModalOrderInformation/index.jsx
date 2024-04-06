@@ -57,6 +57,8 @@ export default function ModalOrderInformation({ close }) {
     };
   }, []);
 
+  console.log(result);
+
   return (
     <Modal>
       <div
@@ -108,9 +110,10 @@ export default function ModalOrderInformation({ close }) {
             }}
           /> */}
           <InputForm
-            label="Unique key"
+            label="Address"
             name="unique_key"
-            defaultValue={uniqueKey}
+            // defaultValue={uniqueKey}
+            defaultValue={result?.data?.wallet}
             error={setErrorMessage({ formField: errors?.unique_key })}
             register={register}
             readOnly
@@ -154,9 +157,9 @@ export default function ModalOrderInformation({ close }) {
               </svg>
             </Button>
           </div>
-          <div className={styles.ModalOrderInformation__info_item}>
-            to address {result?.data?.wallet}
-          </div>
+          {/* <div className={styles.ModalOrderInformation__info_item}>
+            to address 
+          </div> */}
         </div>
         {/* <img
           className={styles.ModalOrderInformation__qr_code}
