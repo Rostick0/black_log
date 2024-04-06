@@ -7,7 +7,6 @@ import { useUserGetQuery } from "./app/store/modules/userSettings";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenHeader, removeToken } from "./app/utils/token";
 import { setUser } from "./app/store/modules/user";
-import Echo from "laravel-echo";
 
 function App() {
   const user = useSelector((state) => state.user.value);
@@ -28,23 +27,23 @@ function App() {
 
   const isAuth = useMemo(() => localStorage.getItem("auth"), [user]);
 
-  useEffect(() => {
-    if (!user) return;
+  // useEffect(() => {
+  //   if (!user) return;
 
-    window.io = require("socket.io-client");
-    window.echo = new Echo({
-      broadcaster: "socket.io",
-      host: "https://other.punter.website:6001/",
-      // host: "http://127.0.0.1:6001/",
-      auth: {
-        headers: {
-          ...getTokenHeader(),
-        },
-      },
-      // Для SPA:
-      withCredentials: true,
-    });
-  }, [user]);
+  //   window.io = require("socket.io-client");
+  //   window.echo = new Echo({
+  //     broadcaster: "socket.io",
+  //     host: "https://other.punter.website:6001/",
+  //     // host: "http://127.0.0.1:6001/",
+  //     auth: {
+  //       headers: {
+  //         ...getTokenHeader(),
+  //       },
+  //     },
+  //     // Для SPA:
+  //     withCredentials: true,
+  //   });
+  // }, [user]);
 
   return (
     <div className={"wrapper" + the}>

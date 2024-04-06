@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import {
   useTicketMessagesGetQuery,
   useTicketChatCreateMutation,
+  useLazyTicketMessagesGetQuery,
 } from "../../app/store/modules/ticketChat";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,14 +17,21 @@ export default function TicketChat() {
   const user = useSelector((state) => state.user).value;
   const navigate = useNavigate();
 
-  const { data, isLoading } = useTicketMessagesGetQuery({ id });
+  const { data, isLoading, isFetching } = useTicketMessagesGetQuery({ id });
   const [messages, setMessages] = useState();
   const [sendMessage] = useTicketChatCreateMutation();
+  const [getMessages, resultMessages] = useLazyTicketMessagesGetQuery();
+
+  useEffect(() => {
+    setTimeout(() => {
+      messagesRef.current.scrollIntoView({ behavior: "smooth" });
+    });
+  }, [isFetching]);
 
   useEffect(() => {
     if (isLoading) return;
 
-    setMessages(data);
+    // setMessages(data);
 
     setTimeout(() => {
       messagesRef.current.scrollIntoView({ behavior: "smooth" });
@@ -31,30 +39,34 @@ export default function TicketChat() {
   }, [isLoading]);
 
   useEffect(() => {
-    if (!window.echo) return;
+    let intervalId = setInterval(() => {
+      getMessages({ id });
+    }, 5000);
 
-    window.echo
-      .private("tickets-chat." + id) // Убедитесь, что это имя канала совпадает с тем, что вы используете на сервере
-      .listen(".TicketMessageSent", (e) => {
-        console.log(e); // Логируем в консоль для отладки
-        // setMessages([...messages, e]);
-      });
-    console.log(window.echo);
-  }, [window.echo]);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   if (!window.echo) return;
+
+  //   window.echo
+  //     .private("tickets-chat." + id) // Убедитесь, что это имя канала совпадает с тем, что вы используете на сервере
+  //     .listen(".TicketMessageSent", (e) => {
+  //       console.log(e); // Логируем в консоль для отладки
+  //       // setMessages([...messages, e]);
+  //     });
+  //   console.log(window.echo);
+  // }, [window.echo]);
 
   const messagesRef = useRef(null);
 
   const { handleSubmit, register, reset } = useForm();
 
   const onSubmit = async (values) => {
-    // setMessages([
-    //   ...messages,
-    // ]);
-    const res = await sendMessage({ body: { ...values, ticket_id: id } });
+    const res = await sendMessage({ id, body: { ...values, ticket_id: id } });
     reset({ text: "" });
-    setTimeout(() => {
-      messagesRef.current.scrollIntoView({ behavior: "smooth" });
-    });
   };
 
   const messageFromMe = (sendlerId) => {
@@ -88,8 +100,8 @@ export default function TicketChat() {
       <div className={styles.TicketChat__content}>
         <div className={styles.TicketChat__messages}>
           <div className="" ref={messagesRef}></div>
-          {messages?.length > 0 &&
-            messages?.map((item) => (
+          {data?.length > 0 &&
+            data?.map((item) => (
               <div
                 className={
                   styles.TicketChat__message + messageFromMe(item.user_id)

@@ -33,10 +33,13 @@ export const ticketChatApi = createApi({
         },
         body,
       }),
-      // invalidatesTags: [{ type: "TicketChat" }],
+      invalidatesTags: [{ type: "TicketChat" }],
     }),
   }),
 });
 
-export const { useTicketMessagesGetQuery, useTicketChatCreateMutation } =
-  ticketChatApi;
+export const {
+  useTicketMessagesGetQuery,
+  useTicketChatCreateMutation,
+  useLazyTicketMessagesGetQuery,
+} = ticketChatApi;
