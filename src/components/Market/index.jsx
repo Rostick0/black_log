@@ -53,7 +53,7 @@ export default function Market() {
       <div className="filter-inputs">
         <InputForm
           name="search"
-          label="Search"
+          label="Keyword"
           register={register}
           onChange={debounce(
             (e) => updateCurrentFilterValue("search", e.target.value),
