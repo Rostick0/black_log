@@ -29,7 +29,7 @@ export default function SupportRequests() {
     <div className={styles.SupportRequests}>
       <div className={styles.SupportRequests__top}>
         <Title className={styles.SupportRequests__title}>Requests</Title>
-        <div className={styles.SupportRequests__buttons}>
+        {/* <div className={styles.SupportRequests__buttons}>
           <Button className="btn-circle" variant="bright_blue">
             <svg
               width="20"
@@ -47,7 +47,7 @@ export default function SupportRequests() {
               />
             </svg>
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className={styles.SupportRequests__list}>
         {data?.data?.length > 0 &&

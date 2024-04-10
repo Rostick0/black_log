@@ -24,7 +24,7 @@ useEffect(() => {
     <div className={styles.Banks}>
       <div className={styles.Banks__top}>
         <Title className={styles.Banks__title}>Banks</Title>
-        <div className={styles.Banks__buttons}>
+        {/* <div className={styles.Banks__buttons}>
           <Button className="btn-circle" variant="white">
             <svg
               width="20"
@@ -59,7 +59,7 @@ useEffect(() => {
               />
             </svg>
           </Button>
-        </div>
+        </div> */}
       </div>
       <table className="table">
         <thead>

@@ -7,7 +7,6 @@ const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const Market = lazy(() => import("../pages/Market"));
-const Requests = lazy(() => import("../pages/Requests"));
 const TicketChat = lazy(() => import("../pages/TicketChat"));
 
 const ClientTickets = lazy(() => import("../pages/Client/Tickets"));
@@ -78,7 +77,6 @@ const AppRouter = ({ loggedIn }) => {
             <Route path={ROUTE_NAMES.main} element={<Home />}></Route>
 
             <Route path={ROUTE_NAMES.market} element={<Market />}></Route>
-            <Route path={ROUTE_NAMES.requests} element={<Requests />}></Route>
             <Route
               path={ROUTE_NAMES.ticket.chat + "/:id"}
               element={<TicketChat />}

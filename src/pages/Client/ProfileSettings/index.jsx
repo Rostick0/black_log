@@ -17,6 +17,7 @@ import { submit } from "../../../app/utils/form";
 import TelegramInput from "./components/TelegramInput";
 import NameInput from "./components/NameInput";
 import { equalFields } from "./../../../app/utils/validate";
+import { useEffect } from "react";
 
 export default function ProfileSettings() {
   const {
@@ -30,6 +31,10 @@ export default function ProfileSettings() {
 
   const user = useSelector((state) => state.user.value);
   const onSubmit = submit(userUpdate, setError);
+
+  useEffect(() => {
+    document.title = "Settings";
+  }, []);
 
   return (
     <LayoutProfile>

@@ -3,6 +3,10 @@ import ComponentSellerProfileBasket from "../../../components/SellerProfileBaske
 import styles from "./style.module.scss";
 
 export default function ProfileBasket() {
+  useEffect(() => {
+    document.title = "Basket";
+  }, []);
+
   return (
     <LayoutProfile>
       <div className={styles.ProfileBasket}>

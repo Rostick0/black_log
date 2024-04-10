@@ -1,11 +1,13 @@
-import { useSelector, useStore } from "react-redux";
 import styles from "./style.module.scss";
 import HotTickets from "../../../components/HotTickets";
 import News from "../../../components/News";
 import LayoutDefault from "../../../layout/LayoutDefault";
+import { useEffect } from "react";
 
 export default function Home() {
-  const store = useStore();
+  useEffect(() => {
+    document.title = "Hot Tickets";
+  }, []);
 
   return (
     <LayoutDefault>

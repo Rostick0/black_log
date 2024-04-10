@@ -1,8 +1,13 @@
 import LayoutDefault from "../../layout/LayoutDefault";
 import MarketContent from "../../components/Market";
 import styles from "./style.module.scss";
+import { useEffect } from "react";
 
 export default function Market() {
+  useEffect(() => {
+    document.title = "Market";
+  }, []);
+
   return (
     <LayoutDefault>
       <div className={styles.Market}>
