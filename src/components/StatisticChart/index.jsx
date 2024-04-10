@@ -21,6 +21,9 @@ import { dateList } from "../../app/utils/date";
 //   "May 2019",
 // ];
 
+const dateStart = dateList("2020-01-01");
+const dateEnd = dateList("2020-01-01", true);
+
 const datasetsDefault = (isLight) => ({
   fill: true,
   pointHoverBackgroundColor: isLight ? "#f2f7fe" : "#22272f",
@@ -31,11 +34,12 @@ export default function StatisticChart({
   chartData,
   setStartDate,
   setEndDate,
+  defaultValues,
 }) {
   const { theme, isLight } = useTheme();
   const chartRef = useRef(null);
 
-  const { register } = useForm();
+  const { register, setValue } = useForm();
   const options = useMemo(
     () => ({
       responsive: true,
@@ -174,21 +178,26 @@ export default function StatisticChart({
             inputClassName={styles.StatisticChart__select_input}
             iconClassName={styles.StatisticChart__select_icon}
             name="start_date"
+            defaultValue={dateStart?.find(
+              (elem) => elem.value === defaultValues["start_date"]
+            )}
             onChange={(item) => {
               setStartDate(item?.value);
-              // console.log(item);
             }}
             register={register}
             leftContent={
               <span className={styles.StatisticChart__select_label}>from</span>
             }
-            items={dateList("2020-01-01")}
+            items={dateStart}
             withIcon
           />
           <SelectForm
             inputClassName={styles.StatisticChart__select_input}
             iconClassName={styles.StatisticChart__select_icon}
             name="end_date"
+            defaultValue={dateEnd?.find(
+              (elem) => elem.value === defaultValues["end_date"]
+            )}
             onChange={(item) => {
               setEndDate(item?.value);
             }}
@@ -196,7 +205,7 @@ export default function StatisticChart({
             leftContent={
               <span className={styles.StatisticChart__select_label}>to</span>
             }
-            items={dateList("2020-01-01", true)}
+            items={dateEnd}
             withIcon
           />
         </form>

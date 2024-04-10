@@ -86,8 +86,8 @@ export default function SelectForm({
               styleInputClassName
             }
             placeholder={placeholder}
-            defaultValue={value?.value}
-            value={value?.name}
+            defaultValue={value?.name}
+            // value={value?.name}
             readOnly
           />
           {withIcon && (

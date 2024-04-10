@@ -9,17 +9,6 @@ import { useTicketsGetQuery } from "../../app/store/modules/ticket";
 import useFilter from "../../app/hook/useFilter";
 
 export default function SupportTickets() {
-  // const data = Array.from(Array(3).keys()).map((item) => ({
-  //   id: item,
-  //   date: "12.03.2024",
-  //   user: "login",
-  //   subject: "Low-quality logs",
-  //   seller: "login",
-  //   amount: "10$",
-  //   comment:
-  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  //   status: "In processing",
-  // }));
   const { filters, updateCurrentFilterValue } = useFilter();
   const { data } = useTicketsGetQuery(filters);
 
@@ -27,7 +16,7 @@ export default function SupportTickets() {
     <div className={styles.SupportTickets}>
       <div className={styles.SupportTickets__top}>
         <Title className={styles.SupportTickets__title}>Tickets</Title>
-        <div className={styles.SupportTickets__buttons}>
+        {/* <div className={styles.SupportTickets__buttons}>
           <Button className="btn-circle" variant="white">
             <svg
               width="20"
@@ -62,7 +51,7 @@ export default function SupportTickets() {
               />
             </svg>
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className={styles.SupportTickets__list}>
         {data?.data?.length > 0 &&

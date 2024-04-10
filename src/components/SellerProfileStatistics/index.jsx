@@ -29,6 +29,7 @@ export default function SellerProfileStatistics() {
             updateCurrentFilterValue("start_date", value)
           }
           setEndDate={(value) => updateCurrentFilterValue("end_date", value)}
+          defaultValues={filters}
         />
       )}
       <div className={styles.SellerProfileStatistics__stats}>

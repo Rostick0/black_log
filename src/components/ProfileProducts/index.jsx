@@ -21,7 +21,7 @@ export default function ProfileProducts() {
 
   return (
     <div className={styles.ProfileProducts}>
-      <Title variant="small">Transaction history</Title>
+      <Title variant="small">My product</Title>
       <table className={styles.ProfileProducts__table + " table"}>
         <thead>
           <tr className="table-tr">

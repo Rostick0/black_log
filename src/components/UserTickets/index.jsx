@@ -17,7 +17,7 @@ export default function UserTickets() {
     <div className={styles.UserTickets}>
       <div className={styles.UserTickets__top}>
         <Title className={styles.UserTickets__title}>Tickets</Title>
-        <div className={styles.UserTickets__buttons}>
+        {/* <div className={styles.UserTickets__buttons}>
           <Button className="btn-circle" variant="white">
             <svg
               width="20"
@@ -52,7 +52,7 @@ export default function UserTickets() {
               />
             </svg>
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className={styles.UserTickets__list}>
         {data?.data?.length > 0 &&
