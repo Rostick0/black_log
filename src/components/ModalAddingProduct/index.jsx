@@ -13,6 +13,7 @@ import {
   setErrorMessage,
   setErrorMessageForm,
 } from "../../app/utils/error";
+import { useMemo, useState } from "react";
 
 export default function ModalAddingProduct({ close }) {
   const user = useSelector((state) => state.user.value);
@@ -22,31 +23,55 @@ export default function ModalAddingProduct({ close }) {
     handleSubmit,
     register,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
+  const [countArchive, setCountArchive] = useState(1);
+
+  const arrayArchive = useMemo(
+    () => Array.from(Array(countArchive).keys()),
+    [countArchive]
+  );
+
   const onSubmit = async (values) => {
     const formData = new FormData();
-    formData.append("data[0][amount]", values?.amount);
-    formData.append("data[0][archive]", values?.archive[0]);
-    formData.append("data[0][country]", values?.country);
-    formData.append("data[0][seller_id]", user.id);
+
+    values?.archive?.forEach((item, index) => {
+      if (!item?.[0]) return;
+
+      formData.append(`data[${index}][amount]`, values?.amount);
+      formData.append(`data[${index}][archive]`, item[0]);
+      formData.append(`data[${index}][country]`, values?.country);
+      formData.append(`data[${index}][seller_id]`, user.id);
+    });
 
     const res = await createOffser({
       body: formData,
     });
 
-    console.log(res?.error?.data?.errors[0]);
+    console.log(res?.error?.data?.errors);
 
-    if (res?.error && res?.error?.data?.errors[0]) {
-      setErrorMessageForm(res?.error?.data?.errors[0], setError);
+    if (res?.error && res?.error?.data?.errors) {
+      const errorsObject = Object.entries(res?.error?.data?.errors);
+
+      if (!errorsObject?.length) return;
+
+      setErrorMessageForm({ ...errorsObject[0]?.[1] }, setError);
+      clearErrors("archive");
+
+      errorsObject?.forEach((item) => {
+        const error = {};
+        error[`archive[${item?.[0]}]`] = item?.[1]?.archive;
+        setErrorMessageForm(error, setError);
+      });
 
       return;
     }
 
-    setTimeout(() => {
-      close();
-    }, 1500);
+    // setTimeout(() => {
+    //   close();
+    // }, 1500);
   };
 
   return (
@@ -75,18 +100,6 @@ export default function ModalAddingProduct({ close }) {
               },
             }}
           />
-          <UploadForm
-            className={styles.SellerProfileBasketItem__field}
-            label="Archive"
-            name="archive"
-            error={setErrorMessage({ formField: errors?.archive })}
-            register={register}
-            rules={{
-              required: true,
-            }}
-          >
-            None file
-          </UploadForm>
           <InputForm
             className={styles.SellerProfileBasketItem__field}
             label="Country"
@@ -101,6 +114,32 @@ export default function ModalAddingProduct({ close }) {
               },
             }}
           />
+          {arrayArchive.map((el, index) => (
+            <UploadForm
+              key={index}
+              className={styles.SellerProfileBasketItem__field}
+              accept=".zip"
+              label="Archive"
+              name={`archive[${index}]`}
+              error={setErrorMessage({ formField: errors?.archive?.[index] })}
+              register={register}
+              onChange={() => {
+                if (arrayArchive.length - 1 !== index) return;
+                // console.log(5);
+                setCountArchive((prev) => (prev += 1));
+              }}
+              // arrayArchive.length - 1 !== index ||
+              rules={
+                index === 0
+                  ? {
+                      required: true,
+                    }
+                  : {}
+              }
+            >
+              None file
+            </UploadForm>
+          ))}
           <Button className={styles.ModalAddingProduct__btn}>Save</Button>
         </form>
         {result?.data?.message && (

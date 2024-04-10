@@ -13,6 +13,7 @@ export default function UploadForm({
   variant,
   name = "",
   rules = {},
+  onChange,
   ...other
 }) {
   const [value, setValue] = useState();
@@ -26,7 +27,9 @@ export default function UploadForm({
         {...other}
       >
         <span
-          className={stylesButton.btn + " " + styles.UploadForm__btn + " btn-circle"}
+          className={
+            stylesButton.btn + " " + styles.UploadForm__btn + " btn-circle"
+          }
         >
           <svg
             width="20"
@@ -52,6 +55,7 @@ export default function UploadForm({
             ...rules,
             onChange: (e) => {
               setValue(e.target.files[0]);
+              typeof onChange === "function" && onChange(e.target.files[0]);
             },
           })}
           hidden

@@ -1,6 +1,7 @@
 import LayoutProfile from "../../../layout/LayoutProfile";
 import ComponentSellerProfileBasket from "../../../components/SellerProfileBasket";
 import styles from "./style.module.scss";
+import { useEffect } from "react";
 
 export default function ProfileBasket() {
   useEffect(() => {
