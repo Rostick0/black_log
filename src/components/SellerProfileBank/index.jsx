@@ -5,9 +5,12 @@ import SellerProfileBankItem from "../SellerProfileBankItem";
 import styles from "./style.module.scss";
 import { useBanksMyGetQuery } from "../../app/store/modules/bank";
 import ModalAddingBank from "../ModalAddingBank";
+import useFilter from "../../app/hook/useFilter";
+import Pagination from "../../ui/Pagination";
 
 export default function SellerProfileBank() {
-  const { data } = useBanksMyGetQuery();
+  const { filters, updateCurrentFilterValue } = useFilter();
+  const { data } = useBanksMyGetQuery(filters);
 
   const [activeModal, setActiveModal] = useState(false);
 
@@ -19,12 +22,17 @@ export default function SellerProfileBank() {
         </Title>
         <Button onClick={() => setActiveModal(true)}>Add a new</Button>
       </div>
-      {data?.data?.length > 0 && data?.data?.map((item) => (
-        <SellerProfileBankItem key={item.id} {...item} />
-      ))}
-      {activeModal && (
-        <ModalAddingBank close={() => setActiveModal(false)} />
-      )}
+      {data?.data?.length > 0 &&
+        data?.data?.map((item) => (
+          <SellerProfileBankItem key={item.id} {...item} />
+        ))}
+      <Pagination
+        links={data?.links}
+        currentPage={data?.current_page}
+        lastPage={data?.last_page}
+        onChange={(number) => updateCurrentFilterValue("page", number)}
+      />
+      {activeModal && <ModalAddingBank close={() => setActiveModal(false)} />}
     </div>
   );
 }

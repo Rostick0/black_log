@@ -23,6 +23,8 @@ export default function Pagination({
     onChange(currentPage + 1);
   };
 
+  if (lastPage === 1) return;
+
   return (
     <div className={styles.Pagination + styleClassName}>
       <Button className={styles.Pagination__arrow} onClick={decrement}>

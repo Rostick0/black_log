@@ -24,6 +24,23 @@ export const ticketApi = createApi({
           : [{ type: "Tickets", id: "LIST" }];
       },
     }),
+    ticketsMyGet: build.query({
+      query: (params = {}) => ({
+        url: "/user/tickets",
+        headers: {
+          ...getTokenHeader(),
+        },
+        params,
+      }),
+      providesTags: (result) => {
+        return result?.result?.length
+          ? [
+              ...result?.result?.map(({ id }) => ({ type: "Tickets", id })),
+              { type: "Tickets", id: "LIST" },
+            ]
+          : [{ type: "Tickets", id: "LIST" }];
+      },
+    }),
     ticketsHotGet: build.query({
       query: (params = {}) => ({
         url: "tickets/hot",
@@ -77,6 +94,7 @@ export const ticketApi = createApi({
 
 export const {
   useTicketsGetQuery,
+  useTicketsMyGetQuery,
   useTicketsHotGetQuery,
   useTicketGetQuery,
   useTicketCreateMutation,

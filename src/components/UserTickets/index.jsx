@@ -4,14 +4,14 @@ import styles from "./style.module.scss";
 import Pagination from "../../ui/Pagination";
 import Ticket from "../Ticket";
 import TicketActionSendler from "../TicketActionSendler";
-import { useTicketsGetQuery } from "../../app/store/modules/ticket";
+import { useTicketsMyGetQuery } from "../../app/store/modules/ticket";
 import useFilter from "../../app/hook/useFilter";
 import { debounce } from "lodash";
 
 export default function UserTickets() {
   const { filters, updateCurrentFilterValue } = useFilter();
 
-  const { data } = useTicketsGetQuery(filters);
+  const { data } = useTicketsMyGetQuery(filters);
 
   return (
     <div className={styles.UserTickets}>
