@@ -69,9 +69,9 @@ export default function ModalAddingProduct({ close }) {
       return;
     }
 
-    // setTimeout(() => {
-    //   close();
-    // }, 1500);
+    setTimeout(() => {
+      close();
+    }, 1500);
   };
 
   return (
