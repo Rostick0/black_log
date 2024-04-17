@@ -2,9 +2,10 @@ import styles from "./style.module.scss";
 import { useTheme } from "../../app/context/ThemeContext";
 import { setClassName } from "../../app/utils/class";
 import { useMemo } from "react";
-import { submit } from "../../app/utils/form";
+import { useUserUpdateMutation } from "../../app/store/modules/userSettings";
 
-export default function SwitchTheme({ userUpdate }) {
+export default function SwitchTheme() {
+  const [userUpdate] = useUserUpdateMutation();
   const { theme, toggleTheme } = useTheme();
 
   const activeClass = useMemo(
@@ -12,11 +13,11 @@ export default function SwitchTheme({ userUpdate }) {
     [theme]
   );
 
-  const onSubmit = submit(userUpdate);
-
   const switchClick = () => {
-    onSubmit({
-      dark_mode: !theme,
+    userUpdate({
+      body: {
+        dark_mode: theme === "light" ? 1 : 0,
+      },
     });
     toggleTheme();
   };

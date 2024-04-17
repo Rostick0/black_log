@@ -3,6 +3,7 @@ import { ROUTE_NAMES } from "../../app/router";
 import Nav from "../../components/Nav";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import SwitchThemePage from "../../components/SwitchThemePage";
 
 export default function LayoutDefault({ children }) {
   const user = useSelector((state) => state.user.value);
@@ -58,6 +59,7 @@ export default function LayoutDefault({ children }) {
         <Nav routes={routes} />
       </div>
       <div className={styles.LayoutDefault__content}>{children}</div>
+      <SwitchThemePage />
     </div>
   );
 }

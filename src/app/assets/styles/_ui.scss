@@ -52,6 +52,7 @@ span.btn-circle {
     padding-bottom: 8px;
 
     &:last-child {
+      width: 300px;
       padding-right: 0;
     }
   }
@@ -62,6 +63,15 @@ span.btn-circle {
 
   .table-item-action {
     width: 36px;
+
+    &s {
+      width: 80px;
+
+      &__inner {
+        display: flex;
+        column-gap: 8px;
+      }
+    }
   }
 }
 

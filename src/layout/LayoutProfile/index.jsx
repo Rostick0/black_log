@@ -4,6 +4,7 @@ import Nav from "../../components/Nav";
 import ProfileSwitchPages from "../../components/ProfileSwitchPages";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import SwitchThemePage from "../../components/SwitchThemePage";
 
 export default function LayoutProfile({ children }) {
   const user = useSelector((state) => state.user.value);
@@ -64,6 +65,7 @@ export default function LayoutProfile({ children }) {
           <div className={styles.LayoutProfile__content_inner}>{children}</div>
         </div>
       </div>
+      <SwitchThemePage />
     </div>
   );
 }

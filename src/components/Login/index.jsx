@@ -1,6 +1,5 @@
 import styles from "./style.module.scss";
 import Title from "./../../ui/Title";
-import Input from "./../../ui/Input";
 import Button from "./../../ui/Button";
 import MyLink from "./../../ui/MyLink";
 import { ROUTE_NAMES } from "./../../app/router";
@@ -24,7 +23,7 @@ export default function Login() {
 
   const dispatch = useDispatch();
 
-  const [login, result] = useLoginMutation();
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {

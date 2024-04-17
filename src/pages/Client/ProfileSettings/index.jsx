@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import {
   errorsMessage,
   setErrorMessage,
-  setErrorMessageForm,
 } from "../../../app/utils/error";
 import MailInput from "./components/MailInput";
 import { submit } from "../../../app/utils/form";
@@ -104,7 +103,7 @@ export default function ProfileSettings() {
         </form>
         <div className="">
           <Title variant="small">Other settings</Title>
-          <SwitchTheme user={user} userUpdate={userUpdate} />
+          <SwitchTheme />
         </div>
       </div>
     </LayoutProfile>
